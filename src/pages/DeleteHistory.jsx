@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { toast } from "sonner";
 const DeleteHistory = () => {
   const [deletedTasks, setDeletedTasks] = useState(() => {
     const stored = localStorage.getItem('deleted_tasks');
@@ -18,6 +18,7 @@ const DeleteHistory = () => {
   // Wipe out handler
   const handleWipeOut = () => {
     localStorage.removeItem('deleted_tasks');
+    toast.success("All data wiped successfully.");
     setDeletedTasks([]);
   };
 
@@ -117,13 +118,7 @@ const DeleteHistory = () => {
                 <span className="relative z-10">Wipe All Data</span>
                 <div className="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               </button>
-
-              <Link
-                to="/dashboard"
-                className="w-full py-4 text-center text-sm font-bold text-gray-400 uppercase tracking-widest hover:text-black transition-colors"
-              >
-                Cancel Operation
-              </Link>
+ 
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { Link} from "react-router-dom"
 
 const ListTasks = () => {
   const [tasks, setTasks] = useState(() => {
@@ -22,18 +23,12 @@ const ListTasks = () => {
 
     deletedTasks.push(taskWithTimestamp);
 
-    localStorage.setItem(
-      "deleted_tasks",
-      JSON.stringify(deletedTasks)
-    );
+    localStorage.setItem("deleted_tasks", JSON.stringify(deletedTasks));
 
     const updatedTasks = tasks.filter((task) => task.id !== id);
     setTasks(updatedTasks);
 
-    localStorage.setItem(
-      "tasks",
-      JSON.stringify(updatedTasks)
-    );
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     toast.warning("Task permanently removed.", {
       style: { background: "#000000", color: "#ffffff" },
     });
@@ -61,10 +56,9 @@ const ListTasks = () => {
   return (
     <div className="min-h-screen bg-[#FDFDFD] p-6 font-sans">
       <div className="max-w-2xl mx-auto bg-white rounded-4xl shadow-lg p-8 border border-neutral-100">
-
         <h1 className="text-3xl font-black text-black mb-8 text-center uppercase">
           Task List
-        </h1>
+        </h1>        
 
         {tasks.length === 0 ? (
           <p className="text-center text-neutral-400 font-medium">
@@ -78,7 +72,6 @@ const ListTasks = () => {
                 className="flex items-center justify-between bg-neutral-50 rounded-2xl p-4 shadow-sm"
               >
                 <div className="flex items-center gap-4">
-
                   <input
                     type="checkbox"
                     checked={task.completed}
@@ -106,6 +99,13 @@ const ListTasks = () => {
             ))}
           </ul>
         )}
+        <Link
+          to="/dashboard"
+          className="mt-12 text-neutral-400 hover:text-black font-bold text-sm uppercase tracking-widest transition-all duration-300 flex items-center space-x-2"
+        >
+          <span>←</span>
+          <span>Back to Dashboard</span>
+        </Link>
       </div>
     </div>
   );
