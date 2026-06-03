@@ -1,123 +1,312 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { HiOutlineUpload, HiOutlineDownload, HiArrowLeft } from "react-icons/hi";
 import { toast } from "sonner";
+import { useTheme } from "../../../context/ThemeContext";
+import ThemeToggle from "../../../components/ThemeToggle";
 
 const DataCenter = () => {
+  const { dark } = useTheme();
   const fileInputRef = useRef(null);
 
+  const [snippetStats, setSnippetStats] = useState({ total: 0, git: 0, docker: 0, npm: 0, other: 0 });
+
+  useEffect(() => {
+    const saved = localStorage.getItem("dev_snippets");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      setSnippetStats({
+        total: parsed.length,
+        git: parsed.filter((s) => s.category === "GIT").length,
+        docker: parsed.filter((s) => s.category === "DOCKER").length,
+        npm: parsed.filter((s) => s.category === "NPM").length,
+        other: parsed.filter((s) => s.category === "OTHER").length,
+      });
+    }
+  }, []);
+
   const handleExport = () => {
-    // TODO: Implement JSON export function
-    toast.success("Export triggered.");
+    const saved = localStorage.getItem("dev_snippets");
+    const snippets = saved ? JSON.parse(saved) : [];
+
+    if (snippets.length === 0) {
+      toast.error("No snippets to backup.", {
+        style: { background: "#000000", color: "#ffffff" },
+      });
+      return;
+    }
+
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      snippets,
+    };
+
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+      type: "application/json",
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `snippets-backup-${Date.now()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    toast.success("Snippet vault backed up successfully!", {
+      style: { background: "#000000", color: "#ffffff" },
+    });
   };
 
   const handleImport = (e) => {
-    // TODO: Implement JSON import and merge validation
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const parsed = JSON.parse(event.target.result);
+
+        if (!parsed.snippets || !Array.isArray(parsed.snippets)) {
+          toast.error("Invalid file format — missing snippets database.", {
+            style: { background: "#000000", color: "#ffffff" },
+          });
+          return;
+        }
+
+        const isValid = parsed.snippets.every(
+          (s) =>
+            typeof s.id !== "undefined" &&
+            typeof s.title === "string" &&
+            typeof s.code === "string" &&
+            ["GIT", "DOCKER", "NPM", "OTHER"].includes(s.category)
+        );
+
+        if (!isValid) {
+          toast.error("File validation failed — invalid snippet schema detected.", {
+            style: { background: "#000000", color: "#ffffff" },
+          });
+          return;
+        }
+
+        localStorage.setItem("dev_snippets", JSON.stringify(parsed.snippets));
+
+        setSnippetStats({
+          total: parsed.snippets.length,
+          git: parsed.snippets.filter((s) => s.category === "GIT").length,
+          docker: parsed.snippets.filter((s) => s.category === "DOCKER").length,
+          npm: parsed.snippets.filter((s) => s.category === "NPM").length,
+          other: parsed.snippets.filter((s) => s.category === "OTHER").length,
+        });
+
+        toast.success(`Import completed! Loaded ${parsed.snippets.length} snippets.`, {
+          style: { background: "#000000", color: "#ffffff" },
+        });
+      } catch {
+        toast.error("Parsing failed — ensure file is a valid DevTasks JSON backup.", {
+          style: { background: "#000000", color: "#ffffff" },
+        });
+      }
+    };
+
+    reader.readAsText(file);
+    e.target.value = "";
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 px-4 py-16">
+    <div
+      className={`min-h-screen px-4 sm:px-6 py-8 flex items-center justify-center transition-colors duration-300 overflow-hidden relative ${
+        dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
+      }`}
+    >
+      <title>Data Center — Snippet Backup Registry</title>
 
-      {/* Ambient glow — indigo top-left */}
+      {/* AMBIENT GLOWS */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-32 -left-32 w-[480px] h-[480px] rounded-full bg-indigo-400/20 dark:bg-indigo-500/10 blur-[120px]"
+        className={`absolute top-[-120px] right-[-120px] w-[280px] sm:w-[420px] h-[280px] sm:h-[420px] rounded-full blur-3xl opacity-40 ${
+          dark ? "bg-zinc-800" : "bg-neutral-200"
+        }`}
+      />
+      <div
+        className={`absolute bottom-[-120px] left-[-120px] w-[280px] sm:w-[420px] h-[280px] sm:h-[420px] rounded-full blur-3xl opacity-40 ${
+          dark ? "bg-zinc-900" : "bg-neutral-100"
+        }`}
       />
 
-      {/* Ambient glow — emerald bottom-right */}
+      {/* MAIN GLASS CARD */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-32 -right-32 w-[480px] h-[480px] rounded-full bg-emerald-400/20 dark:bg-emerald-500/10 blur-[120px]"
-      />
+        className={`relative z-10 w-full max-w-2xl rounded-[32px] border shadow-2xl overflow-hidden transition-all duration-300 ${
+          dark ? "bg-zinc-900 border-zinc-800" : "bg-white border-neutral-200"
+        }`}
+      >
+        {/* TOP ACCENT BAR */}
+        <div className={`h-2 w-full ${dark ? "bg-white" : "bg-black"}`} />
 
-      {/* Glassmorphic container */}
-      <div className="relative z-10 w-full max-w-2xl rounded-[32px] shadow-2xl backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-700/60 bg-white/70 dark:bg-zinc-900/60 p-6 sm:p-10">
-
-        {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-            Snippet Data Center
-          </h1>
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-            Export your snippets as a JSON backup or restore from a previous save.
-          </p>
+        {/* HEADER */}
+        <div className="flex items-start justify-between px-5 sm:px-8 pt-6 sm:pt-8 gap-4">
+          <div>
+            <h1
+              className={`text-2xl sm:text-4xl font-black uppercase tracking-tight ${
+                dark ? "text-white" : "text-black"
+              }`}
+            >
+              Data Center
+            </h1>
+            <p className="text-sm sm:text-base text-neutral-400 mt-2">
+              Backup & restore your snippet vault
+            </p>
+          </div>
+          <ThemeToggle />
         </div>
 
-        {/* Dual-card grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
-          {/* Export Card */}
-          <div className="flex flex-col items-center gap-5 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-zinc-50/80 dark:bg-zinc-800/50 p-6 shadow-sm transition-shadow duration-300 hover:shadow-md">
-
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/40 ring-1 ring-indigo-200 dark:ring-indigo-700/50">
-              <HiOutlineUpload className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
+        {/* VAULT INVENTORY STATS */}
+        <div className="px-5 sm:px-8 pt-6">
+          <div
+            className={`p-4 rounded-2xl border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 ${
+              dark ? "bg-zinc-950 border-zinc-850" : "bg-neutral-50 border-neutral-200"
+            }`}
+          >
+            <div>
+              <div className="text-[10px] font-black tracking-widest text-neutral-400 uppercase">
+                Vault Inventory
+              </div>
+              <div className={`text-base font-black uppercase mt-0.5 ${dark ? "text-white" : "text-black"}`}>
+                {snippetStats.total} snippets ready
+              </div>
             </div>
 
-            <div className="text-center">
-              <h2 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
-                Export Backup
-              </h2>
-              <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                Download all your snippets as a{" "}
-                <code className="font-mono text-indigo-500 dark:text-indigo-400">.json</code>{" "}
-                backup file.
-              </p>
+            <div className="flex flex-wrap gap-2 text-[9px] font-black uppercase tracking-wider text-neutral-500">
+              {[
+                { label: "Git", value: snippetStats.git },
+                { label: "Docker", value: snippetStats.docker },
+                { label: "NPM", value: snippetStats.npm },
+                { label: "Other", value: snippetStats.other },
+              ].map(({ label, value }) => (
+                <span
+                  key={label}
+                  className={`px-2 py-1 rounded-lg ${
+                    dark ? "bg-zinc-800 text-zinc-300" : "bg-white border border-gray-200 text-gray-700"
+                  }`}
+                >
+                  {value} {label}
+                </span>
+              ))}
             </div>
-
-            <button
-              onClick={handleExport}
-              className="mt-auto w-full py-2.5 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer bg-zinc-900 text-white hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200 active:scale-[0.98]"
-            >
-              Download JSON
-            </button>
           </div>
-
-          {/* Import Card */}
-          <div className="flex flex-col items-center gap-5 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 bg-zinc-50/80 dark:bg-zinc-800/50 p-6 shadow-sm transition-shadow duration-300 hover:shadow-md">
-
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-emerald-100 dark:bg-emerald-900/40 ring-1 ring-emerald-200 dark:ring-emerald-700/50">
-              <HiOutlineDownload className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
-            </div>
-
-            <div className="text-center">
-              <h2 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
-                Import Backup
-              </h2>
-              <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                Restore snippets from a previously exported{" "}
-                <code className="font-mono text-emerald-500 dark:text-emerald-400">.json</code>{" "}
-                backup file.
-              </p>
-            </div>
-
-            {/* Hidden file input triggered by button below */}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept=".json"
-              onChange={handleImport}
-              className="sr-only"
-            />
-
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="mt-auto w-full py-2.5 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer bg-zinc-900 text-white hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200 active:scale-[0.98]"
-            >
-              Upload JSON
-            </button>
-          </div>
-
         </div>
 
-        {/* Back link */}
-        <div className="mt-8 flex justify-center">
+        {/* DUAL CARD GRID */}
+        <div className="px-5 sm:px-8 py-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+            {/* EXPORT CARD */}
+            <div
+              className={`p-6 rounded-[24px] border flex flex-col justify-between h-[210px] transition-all duration-300 ${
+                dark ? "bg-zinc-850/40 border-zinc-800" : "bg-neutral-50 border-neutral-250"
+              }`}
+            >
+              <div>
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className={`p-2.5 rounded-xl ${dark ? "bg-indigo-500/10 text-indigo-400" : "bg-indigo-50 text-indigo-600"}`}>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 4v12m0-12L8 8m4-4l4 4" />
+                    </svg>
+                  </div>
+                  <h2 className={`font-black text-sm uppercase tracking-wider ${dark ? "text-white" : "text-black"}`}>
+                    Backup Vault
+                  </h2>
+                </div>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Export all saved snippets as a single portable JSON backup file.
+                </p>
+              </div>
+
+              <button
+                onClick={handleExport}
+                className={`w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all duration-300 ${
+                  dark ? "bg-white text-black hover:bg-neutral-200" : "bg-black text-white hover:bg-neutral-800"
+                }`}
+              >
+                Export JSON
+              </button>
+            </div>
+
+            {/* IMPORT CARD */}
+            <div
+              className={`p-6 rounded-[24px] border flex flex-col justify-between h-[210px] transition-all duration-300 ${
+                dark ? "bg-zinc-850/40 border-zinc-800" : "bg-neutral-50 border-neutral-250"
+              }`}
+            >
+              <div>
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className={`p-2.5 rounded-xl ${dark ? "bg-emerald-500/10 text-emerald-400" : "bg-emerald-50 text-emerald-600"}`}>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 16V4m0 12l-4-4m4 4l4-4" />
+                    </svg>
+                  </div>
+                  <h2 className={`font-black text-sm uppercase tracking-wider ${dark ? "text-white" : "text-black"}`}>
+                    Restore Vault
+                  </h2>
+                </div>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Upload an exported snippet JSON backup to restore your vault.
+                </p>
+              </div>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".json"
+                onChange={handleImport}
+                className="hidden"
+              />
+
+              <button
+                onClick={() => fileInputRef.current.click()}
+                className={`w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all duration-300 ${
+                  dark
+                    ? "bg-zinc-800 border-zinc-700 text-white hover:border-white"
+                    : "bg-white border-neutral-300 text-black hover:border-black"
+                }`}
+              >
+                Upload Backup
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        {/* FOOTER NAV */}
+        <div className="px-5 sm:px-8 pb-8 flex flex-col sm:flex-row gap-4 justify-between items-center border-t border-neutral-100 dark:border-zinc-800 pt-6">
           <Link
             to="/snippetvault"
-            className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors duration-200"
+            className={`inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-widest transition-all duration-300 ${
+              dark ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-black"
+            }`}
           >
-            <HiArrowLeft className="w-3.5 h-3.5" />
-            Back to Workspace
+            <span>←</span>
+            <span>Back to Workspace</span>
           </Link>
+
+          <div className="flex gap-4">
+            <Link
+              to="/snippetvault/list"
+              className={`inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-widest transition-all duration-300 ${
+                dark ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-black"
+              }`}
+            >
+              Snippet List
+            </Link>
+            <span className={dark ? "text-zinc-700" : "text-neutral-300"}>|</span>
+            <Link
+              to="/snippetvault/delete-history"
+              className={`inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-widest transition-all duration-300 ${
+                dark ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-black"
+              }`}
+            >
+              Deleted Snippets
+            </Link>
+          </div>
         </div>
 
       </div>
