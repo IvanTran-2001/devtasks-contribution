@@ -31,6 +31,17 @@ A high-performance, minimalist task manager designed for developer roadmaps. Dev
 * **Notifications**: [Sonner](https://emilkowalski.github.io/sonner/)
 * **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
 
+
+## ☕ Support My Work
+
+<a href="https://buymeachai.ezee.li/shamil_ahmd">
+  <img
+    src="https://buymeachai.ezee.li/assets/images/buymeachai-button.png"
+    alt="Buy Me A Chai"
+    width="180"
+  />
+</a>
+
 ---
 
 ## 📦 Installation & Quick Start
