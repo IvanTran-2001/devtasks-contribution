@@ -13,6 +13,21 @@ import AddSnippet from "./pages/SnippetVault/snippetvault/AddSnippet";
 import ListSnippets from "./pages/SnippetVault/snippetvault/ListSnippets";
 import DeleteHistorySnippet from "./pages/SnippetVault/snippetvault/DeleteHistory";
 import DataCenterSnippet from "./pages/SnippetVault/snippetvault/DataCenter";
+
+// Resource Hub Imports
+import ResourceHub from "./pages/ResourceHub/ResourceHub";
+import AddResource from "./pages/ResourceHub/resourcehub/AddResource";
+import ListResources from "./pages/ResourceHub/resourcehub/ListResources";
+import DeleteHistoryResource from "./pages/ResourceHub/resourcehub/DeleteHistory";
+import DataCenterResource from "./pages/ResourceHub/resourcehub/DataCenter";
+
+// Dev Utilities Imports
+import DevUtilities from "./pages/DevUtilities/DevUtilities";
+import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
+import JsonFormatter from "./pages/DevUtilities/devutilities/JsonFormatter";
+import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
+import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
+
 import { ThemeProvider } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
 import ShortcutsHUD from "./components/ShortcutsHUD";
@@ -44,17 +59,35 @@ function AppInner({ toggleHUD, hudVisible }) {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        
+        {/* Task Management */}
         <Route path="/taskmanage" element={<TaskManage />} />
         <Route path="/taskmanage/add-tasks" element={<AddTasks />} />
         <Route path="/taskmanage/list-tasks" element={<ListTasks />} />
         <Route path="/taskmanage/delete-history" element={<DeleteHistory />} />
         <Route path="/taskmanage/data-center" element={<DataCenter />} />
+        
+        {/* Snippet Vault */}
         <Route path="/snippetvault" element={<SnippetVault />} />
         <Route path="/snippetvault/add" element={<AddSnippet />} />
         <Route path="/snippetvault/list" element={<ListSnippets />} />
         <Route path="/snippetvault/edit/:snippetid" element={<AddSnippet />} />
         <Route path="/snippetvault/delete-history" element={<DeleteHistorySnippet />} />
         <Route path="/snippetvault/data-center" element={<DataCenterSnippet />} />
+        
+        {/* Resource Hub */}
+        <Route path="/resourcehub" element={<ResourceHub />} />
+        <Route path="/resourcehub/add" element={<AddResource />} />
+        <Route path="/resourcehub/list" element={<ListResources />} />
+        <Route path="/resourcehub/delete-history" element={<DeleteHistoryResource />} />
+        <Route path="/resourcehub/data-center" element={<DataCenterResource />} />
+
+        {/* Dev Utilities */}
+        <Route path="/devutilities" element={<DevUtilities />} />
+        <Route path="/devutilities/regex" element={<RegexTester />} />
+        <Route path="/devutilities/json" element={<JsonFormatter />} />
+        <Route path="/devutilities/base64" element={<Base64Url />} />
+        <Route path="/devutilities/timestamp" element={<TimestampConverter />} />
       </Routes>
     </>
   );

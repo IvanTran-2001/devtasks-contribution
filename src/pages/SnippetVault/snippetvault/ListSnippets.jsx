@@ -72,7 +72,7 @@ const ListSnippets = () => {
         }`}
     >
       <div
-        className={`max-w-2xl mx-auto rounded-3xl sm:rounded-4xl shadow-lg p-4 sm:p-8 border transition-colors duration-300 ${dark
+        className={`w-[85%] max-w-none mx-auto rounded-3xl sm:rounded-4xl shadow-lg p-4 sm:p-8 border transition-colors duration-300 ${dark
             ? "bg-zinc-900 border-zinc-700"
             : "bg-white border-neutral-100"
           }`}
@@ -132,11 +132,13 @@ const ListSnippets = () => {
             No snippets match your search.
           </p>
         ) : (
-          <ul className="space-y-4">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredSnippets.map((sn) => (
               <li
                 key={sn.id}
-                className={`flex flex-col gap-4 rounded-2xl p-4 shadow-sm transition-colors duration-200 ${dark ? "bg-zinc-800" : "bg-neutral-50"
+                className={`flex flex-col justify-between gap-4 rounded-2xl p-5 shadow-sm transition-all duration-300 border ${dark
+                    ? "bg-zinc-800/40 border-zinc-700/50 hover:border-zinc-600 hover:shadow-md"
+                    : "bg-neutral-50 border-neutral-200/60 hover:border-neutral-300 hover:shadow-md"
                   }`}
               >
                 {/* Title */}

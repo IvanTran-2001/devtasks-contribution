@@ -35,14 +35,14 @@ const SnippetVault = () => {
 
   const theme = {
     light: {
-      wrapper: "bg-white text-black",
-      card: "bg-gray-50 border-gray-100 text-black hover:bg-black hover:text-white",
-      icon: "bg-white text-black group-hover:bg-white/10 group-hover:text-white",
+      wrapper: "bg-[#F8F9FA] text-zinc-900",
+      card: "bg-white border-zinc-200/85 hover:border-zinc-400 hover:shadow-md hover:-translate-y-1",
+      icon: "bg-black text-white border border-black/10",
     },
     dark: {
-      wrapper: "bg-black text-white",
-      card: "bg-zinc-900 border-zinc-800 text-white hover:bg-white hover:text-black",
-      icon: "bg-black text-white group-hover:bg-black/10 group-hover:text-black",
+      wrapper: "bg-[#090A0F] text-zinc-100",
+      card: "bg-zinc-900/50 border-zinc-800/85 hover:border-zinc-600 hover:shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:-translate-y-1",
+      icon: "bg-white text-black border border-white/10",
     },
   };
   const t = dark ? theme.dark : theme.light;
@@ -140,7 +140,7 @@ const SnippetVault = () => {
         content="Quickly manage, copy, search, edit and backup engineering snippets and configurations."
       />
 
-      <div className="max-w-6xl w-full mx-auto flex flex-col h-full">
+      <div className="w-[85%] max-w-none mx-auto flex flex-col h-full">
         <header className="shrink-0 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
           <div>
             <h1 className="text-4xl font-black uppercase tracking-tighter mb-2">
@@ -178,7 +178,7 @@ const SnippetVault = () => {
                 key={card.title}
                 to={card.path}
                 id={`snippetvault-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
-                className={`group relative p-8 border rounded-3xl transition-all duration-500 flex flex-col justify-between h-[320px] ${t.card}`}
+                className={`group relative p-8 border rounded-3xl transition-all duration-300 flex flex-col justify-between h-[320px] ${t.card}`}
               >
                 <div>
                   <div
@@ -189,7 +189,7 @@ const SnippetVault = () => {
                   <h2 className="text-xl font-black mb-3 uppercase tracking-tight">
                     {card.title}
                   </h2>
-                  <p className="text-sm font-medium text-gray-500 group-hover:text-gray-400 transition-colors leading-relaxed">
+                  <p className="text-sm font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed">
                     {card.description}
                   </p>
                 </div>

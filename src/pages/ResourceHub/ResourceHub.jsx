@@ -3,28 +3,33 @@ import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import ThemeToggle from "../../components/ThemeToggle";
 
-const TaskManage = () => {
+const ResourceHub = () => {
   const { dark } = useTheme();
-  const [percentage, setPercentage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const [categoryBreakdown, setCategoryBreakdown] = useState("");
 
   useEffect(() => {
-    const savedTasks = localStorage.getItem("tasks");
-    let calcPercentage = 0;
+    const saved = localStorage.getItem("dev_resources");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      setTotalCount(parsed.length);
 
-    if (savedTasks) {
-      const tasks = JSON.parse(savedTasks);
-      const totalTasks = tasks.length;
-      if (totalTasks > 0) {
-        const completedTasks = tasks.filter((task) => task.completed).length;
-        calcPercentage = Math.round((completedTasks / totalTasks) * 100);
+      if (parsed.length > 0) {
+        const counts = {};
+        parsed.forEach((r) => {
+          const cat = r.category || "GENERAL";
+          counts[cat] = (counts[cat] || 0) + 1;
+        });
+        const breakdownStr = Object.entries(counts)
+          .map(([cat, count]) => `${cat} (${count})`)
+          .join(" • ");
+        setCategoryBreakdown(breakdownStr);
+      } else {
+        setCategoryBreakdown("No active resources");
       }
+    } else {
+      setCategoryBreakdown("No active resources");
     }
-
-    const timer = setTimeout(() => {
-      setPercentage(calcPercentage);
-    }, 100);
-
-    return () => clearTimeout(timer);
   }, []);
 
   const theme = {
@@ -43,9 +48,9 @@ const TaskManage = () => {
 
   const cards = [
     {
-      title: "Add Tasks",
-      description: "Create new development tasks and assignments.",
-      path: "/taskmanage/add-tasks",
+      title: "Add Resource",
+      description: "Save staging links, localhost servers, Figma specifications, and project bookmarks.",
+      path: "/resourcehub/add",
       icon: (
         <svg
           className="w-6 h-6"
@@ -63,9 +68,9 @@ const TaskManage = () => {
       ),
     },
     {
-      title: "Task List",
-      description: "View and manage your current project roadmap.",
-      path: "/taskmanage/list-tasks",
+      title: "Resource List",
+      description: "Search, copy links, edit bookmarks, and group references by project.",
+      path: "/resourcehub/list",
       icon: (
         <svg
           className="w-6 h-6"
@@ -84,8 +89,8 @@ const TaskManage = () => {
     },
     {
       title: "Delete History",
-      description: "Clear completed tasks and system logs.",
-      path: "/taskmanage/delete-history",
+      description: "Clear deleted reference links and clean up environment logs.",
+      path: "/resourcehub/delete-history",
       icon: (
         <svg
           className="w-6 h-6"
@@ -104,8 +109,8 @@ const TaskManage = () => {
     },
     {
       title: "Data Center",
-      description: "Import and export your task data as JSON backups.",
-      path: "/taskmanage/data-center",
+      description: "Export and import your project resource index as a portable backup.",
+      path: "/resourcehub/data-center",
       icon: (
         <svg
           className="w-6 h-6"
@@ -128,31 +133,28 @@ const TaskManage = () => {
     <div
       className={`${t.wrapper} min-h-screen md:h-screen w-full font-sans overflow-y-auto md:overflow-hidden flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
-      <title>Task Workspace — Dev Tasks Roadmap Control</title>
+      <title>Resource Hub — Reference & Bookmark Registry</title>
       <meta
         name="description"
-        content="Manage developer roadmap, task lists, delete logs, and import/export task data on the DevTasks Task Workspace."
+        content="Quickly manage bookmarks, API endpoints, design mockups, and documentation assets."
       />
 
       <div className="w-[85%] max-w-none mx-auto flex flex-col h-full">
         <header className="shrink-0 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
           <div>
             <h1 className="text-4xl font-black uppercase tracking-tighter mb-2">
-              Task Workspace
+              Resource Hub
             </h1>
             <p className="text-gray-400 font-medium mb-6">
-              Track and organize engineering lists
+              Organize project bookmarks, mockups, and documentations
             </p>
 
             <div className="w-full max-w-sm">
               <div className="text-xs font-black uppercase tracking-widest mb-2">
-                {percentage}% COMPLETE
+                Hub Status: {totalCount} ACTIVE LINKS
               </div>
-              <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                <div
-                  className={`h-full transition-all duration-1000 ${dark ? "bg-white" : "bg-black"}`}
-                  style={{ width: `${percentage}%` }}
-                />
+              <div className="text-[10px] font-bold text-gray-500 uppercase truncate">
+                {categoryBreakdown}
               </div>
             </div>
           </div>
@@ -174,7 +176,7 @@ const TaskManage = () => {
               <Link
                 key={card.title}
                 to={card.path}
-                id={`taskmanage-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
+                id={`resourcehub-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
                 className={`group relative p-8 border rounded-3xl transition-all duration-300 flex flex-col justify-between h-[320px] ${t.card}`}
               >
                 <div>
@@ -203,7 +205,7 @@ const TaskManage = () => {
 
         <div className="shrink-0 mt-8 pt-8 border-t border-gray-50 opacity-10 hidden md:block">
           <h2 className="text-[12vw] font-black tracking-tighter leading-none select-none text-center">
-            TASKS
+            LINKS
           </h2>
         </div>
       </div>
@@ -211,4 +213,4 @@ const TaskManage = () => {
   );
 };
 
-export default TaskManage;
+export default ResourceHub;

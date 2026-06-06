@@ -183,7 +183,7 @@ const AddSnippet = () => {
 
       {/* GLASS CONTAINER */}
       <div
-        className={`relative z-10 w-full max-w-4xl rounded-[32px] border shadow-2xl overflow-hidden transition-all duration-500 ${
+        className={`relative z-10 w-[85%] max-w-none rounded-[32px] border shadow-2xl overflow-hidden transition-all duration-300 ${
           dark ? "bg-zinc-900 border-zinc-800" : "bg-white border-neutral-200"
         }`}
       >

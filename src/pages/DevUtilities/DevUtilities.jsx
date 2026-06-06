@@ -1,31 +1,9 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import ThemeToggle from "../../components/ThemeToggle";
 
-const TaskManage = () => {
+const DevUtilities = () => {
   const { dark } = useTheme();
-  const [percentage, setPercentage] = useState(0);
-
-  useEffect(() => {
-    const savedTasks = localStorage.getItem("tasks");
-    let calcPercentage = 0;
-
-    if (savedTasks) {
-      const tasks = JSON.parse(savedTasks);
-      const totalTasks = tasks.length;
-      if (totalTasks > 0) {
-        const completedTasks = tasks.filter((task) => task.completed).length;
-        calcPercentage = Math.round((completedTasks / totalTasks) * 100);
-      }
-    }
-
-    const timer = setTimeout(() => {
-      setPercentage(calcPercentage);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const theme = {
     light: {
@@ -43,82 +21,42 @@ const TaskManage = () => {
 
   const cards = [
     {
-      title: "Add Tasks",
-      description: "Create new development tasks and assignments.",
-      path: "/taskmanage/add-tasks",
+      title: "Regex Tester",
+      description: "Test regular expressions with flags, highlights, matching text, and capturing groups.",
+      path: "/devutilities/regex",
       icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 4v16m8-8H4"
-          />
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       ),
     },
     {
-      title: "Task List",
-      description: "View and manage your current project roadmap.",
-      path: "/taskmanage/list-tasks",
+      title: "JSON Formatter",
+      description: "Validate JSON string formats, structure code outputs, beautify spacing, or minify data.",
+      path: "/devutilities/json",
       icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h16"
-          />
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         </svg>
       ),
     },
     {
-      title: "Delete History",
-      description: "Clear completed tasks and system logs.",
-      path: "/taskmanage/delete-history",
+      title: "Base64 / URL",
+      description: "Encode and decode binary string fragments, escape special URL query variables, and test strings.",
+      path: "/devutilities/base64",
       icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-          />
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
         </svg>
       ),
     },
     {
-      title: "Data Center",
-      description: "Import and export your task data as JSON backups.",
-      path: "/taskmanage/data-center",
+      title: "Timestamp",
+      description: "Convert epoch/unix values to human-readable datetime formats and parse date strings.",
+      path: "/devutilities/timestamp",
       icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7zm0 5h16"
-          />
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
     },
@@ -128,31 +66,28 @@ const TaskManage = () => {
     <div
       className={`${t.wrapper} min-h-screen md:h-screen w-full font-sans overflow-y-auto md:overflow-hidden flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
-      <title>Task Workspace — Dev Tasks Roadmap Control</title>
+      <title>Dev Utilities — Custom Tools Sandbox</title>
       <meta
         name="description"
-        content="Manage developer roadmap, task lists, delete logs, and import/export task data on the DevTasks Task Workspace."
+        content="Quickly formatting, converting, validating, and checking regular expression statements."
       />
 
       <div className="w-[85%] max-w-none mx-auto flex flex-col h-full">
         <header className="shrink-0 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
           <div>
             <h1 className="text-4xl font-black uppercase tracking-tighter mb-2">
-              Task Workspace
+              Dev Utilities
             </h1>
             <p className="text-gray-400 font-medium mb-6">
-              Track and organize engineering lists
+              Essential developer tools and offline code converters
             </p>
 
             <div className="w-full max-w-sm">
               <div className="text-xs font-black uppercase tracking-widest mb-2">
-                {percentage}% COMPLETE
+                Utility Status: 4 Active Utilities
               </div>
-              <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                <div
-                  className={`h-full transition-all duration-1000 ${dark ? "bg-white" : "bg-black"}`}
-                  style={{ width: `${percentage}%` }}
-                />
+              <div className="text-[10px] font-bold text-gray-500 uppercase truncate">
+                REGEXP • JSON • BASE64/URL • TIMESTAMP
               </div>
             </div>
           </div>
@@ -174,7 +109,7 @@ const TaskManage = () => {
               <Link
                 key={card.title}
                 to={card.path}
-                id={`taskmanage-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
+                id={`devutilities-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
                 className={`group relative p-8 border rounded-3xl transition-all duration-300 flex flex-col justify-between h-[320px] ${t.card}`}
               >
                 <div>
@@ -191,7 +126,7 @@ const TaskManage = () => {
                   </p>
                 </div>
                 <div className="flex items-center text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                  Explore{" "}
+                  Open Tool{" "}
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">
                     →
                   </span>
@@ -203,7 +138,7 @@ const TaskManage = () => {
 
         <div className="shrink-0 mt-8 pt-8 border-t border-gray-50 opacity-10 hidden md:block">
           <h2 className="text-[12vw] font-black tracking-tighter leading-none select-none text-center">
-            TASKS
+            TOOLS
           </h2>
         </div>
       </div>
@@ -211,4 +146,4 @@ const TaskManage = () => {
   );
 };
 
-export default TaskManage;
+export default DevUtilities;

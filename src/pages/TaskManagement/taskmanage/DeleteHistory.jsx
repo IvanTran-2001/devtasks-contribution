@@ -174,7 +174,7 @@ const DeleteHistory = () => {
         content="devtasks, delete-history, clear system cache, restore tasks, bug purge"
       />
 
-      <div className="max-w-6xl w-full mx-auto flex flex-col h-full">
+      <div className="w-[85%] max-w-none mx-auto flex flex-col h-full">
         {/* Header */}
         {/* CORRECTION 2 : flex-col sur mobile pour éviter la compression des éléments */}
         <header className="shrink-0 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">

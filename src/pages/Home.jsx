@@ -56,7 +56,7 @@ const Home = () => {
 
       {/* Main */}
       <main className="flex-1 flex items-center justify-center px-5 sm:px-8 lg:px-14 py-10">
-        <div className="max-w-7xl w-full">
+        <div className="w-[85%] max-w-none">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24 items-center">
             {/* LEFT CONTENT */}
             <div className="space-y-8 text-center lg:text-left">

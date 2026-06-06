@@ -145,7 +145,7 @@ const DataCenter = () => {
 
       {/* MAIN GLASS CARD — fix 2: backdrop-blur-xl + translucent bg */}
       <div
-        className={`relative z-10 w-full max-w-2xl rounded-[32px] border shadow-2xl overflow-hidden backdrop-blur-xl transition-all duration-300 ${
+        className={`relative z-10 w-[85%] max-w-none rounded-[32px] border shadow-2xl overflow-hidden backdrop-blur-xl transition-all duration-300 ${
           dark
             ? "bg-zinc-900/80 border-zinc-800"
             : "bg-white/80 border-neutral-200"

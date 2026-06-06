@@ -322,7 +322,7 @@ const ListTasks = () => {
       />
 
       <div
-        className={`max-w-2xl mx-auto rounded-3xl sm:rounded-4xl shadow-lg p-4 sm:p-8 border transition-colors duration-300 ${
+        className={`w-[85%] max-w-none mx-auto rounded-3xl sm:rounded-4xl shadow-lg p-4 sm:p-8 border transition-colors duration-300 ${
           dark ? "bg-zinc-900 border-zinc-700" : "bg-white border-neutral-100"
         }`}
       >
@@ -480,12 +480,14 @@ const ListTasks = () => {
               : "No tasks added yet."}
           </p>
         ) : (
-          <ul className="space-y-4">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sortedAndFilteredTasks.map((task) => (
               <li
                 key={task.id}
-                className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl p-4 shadow-sm transition-colors duration-200 ${
-                  dark ? "bg-zinc-800" : "bg-neutral-50"
+                className={`flex flex-col justify-between gap-6 rounded-2xl p-5 shadow-sm border transition-all duration-300 ${
+                  dark
+                    ? "bg-zinc-800/40 border-zinc-700/50 hover:border-zinc-600 hover:shadow-md"
+                    : "bg-neutral-50 border-neutral-200/60 hover:border-neutral-300 hover:shadow-md"
                 }`}
               >
                 {/* Left Content */}
