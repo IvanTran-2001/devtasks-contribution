@@ -26,7 +26,7 @@ const Base64Url = () => {
               dark ? "text-white" : "text-black"
             }`}
           >
-            Base64 / URL Converter
+            Base64 Encoder & Decoder
           </h1>
           <ThemeToggle />
         </div>
