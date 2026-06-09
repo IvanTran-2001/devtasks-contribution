@@ -41,11 +41,17 @@ jobs:
             const triggers = [
               "/assign",
               "assign me",
+              "assign it to me",
+              "assign this to me",
+              "please assign",
               "work on this",
               "work on this issue",
               "i want to work on this",
               "can i take this",
-              "let me work on this"
+              "let me work on this",
+              "take this on",
+              "like to contribute",
+              "want to contribute"
             ];
 
             const shouldAssign = triggers.some(trigger => {
