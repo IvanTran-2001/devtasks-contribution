@@ -37,7 +37,7 @@ const sampleResources = [
 
 const filterTags = ["All", "Frontend", "Backend", "DSA", "Tools"];
 
-export default function ListResources() {
+function ListResources() {
   const { dark } = useTheme();
 
   const theme = {

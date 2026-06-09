@@ -73,7 +73,7 @@ const JsonFormatter = () => {
                     : "bg-neutral-50 border-neutral-300 text-black placeholder-neutral-400 focus:border-black focus:ring-1 focus:ring-black"
                 }`}
               />
-              <div className="grid grid-cols-1 grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 {formatCategories.map((item) => (
                   <button
                     key={item}
