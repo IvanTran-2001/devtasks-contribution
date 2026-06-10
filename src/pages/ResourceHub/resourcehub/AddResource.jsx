@@ -1,16 +1,85 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
 import ThemeToggle from "../../../components/ThemeToggle";
+import { toast } from "sonner";
 
-const categories = ["FIGMA", "API", "DOCS", "STAGING"];
+const categories = ["GENERAL", "LOCALHOST", "STAGING", "FIGMA", "DOCUMENTATION"];
 
 const AddResource = () => {
+  const navigate = useNavigate();
   const { dark } = useTheme();
   const [resourceName, setResourceName] = useState("");
   const [resourceUrl, setResourceUrl] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("FIGMA");
+  const [category, setCategory] = useState("GENERAL");
+
+  const [resources, setResources] = useState(() => {
+    const existingResources = localStorage.getItem("dev_resources");
+    return existingResources ? JSON.parse(existingResources) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("dev_resources", JSON.stringify(resources));
+  }, [resources]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(event);
+    const validationErrors = [];
+    const trimedResourceName = resourceName.trim();
+    const trimedResourceUrl = resourceUrl.trim();
+
+    if (!trimedResourceName) {
+      validationErrors.push("・Resource name");
+    }
+    if (!trimedResourceUrl) {
+      validationErrors.push("・Resource url");
+    }
+    if (!category) {
+      validationErrors.push("・Category tag");
+    }
+
+    if (validationErrors.length > 0) {
+      toast.error("The following items are either not filled in or not selected.",
+        { 
+          description: (
+            <div>
+              {validationErrors.map((message) => (
+                <div>{message}</div>
+              ))}
+            </div>
+          )
+        }
+      );
+      return;
+    }
+
+    const newResource = {
+      id: crypto.randomUUID(),
+      title: trimedResourceName,
+      url: trimedResourceUrl,
+      category,
+      description,
+      createdAt: new Date().toISOString()
+    }
+
+    setResources([...resources, newResource]); 
+
+    toast.success("Resource successfully added.",
+      {
+        action: {
+          label: "view list",
+          onClick: () => navigate("/resourcehub/list")
+        }
+      }
+    );
+
+    setResourceName("");
+    setResourceUrl("");
+    setCategory("GENERAL");
+    setDescription("");
+  };
 
   return (
     <div
@@ -173,7 +242,8 @@ const AddResource = () => {
                 Cancel
               </Link>
               <button
-                type="button"
+                type="submit"
+                onClick={handleSubmit}
                 className={`w-full py-4 rounded-2xl text-xs font-black uppercase tracking-widest border transition-all duration-300 transform active:scale-95 ${
                   dark
                     ? "bg-white border-white text-black hover:bg-neutral-200"
