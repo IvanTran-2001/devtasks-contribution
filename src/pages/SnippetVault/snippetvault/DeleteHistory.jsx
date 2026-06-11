@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
-import ThemeToggle from "../../../components/ThemeToggle";
 
 const DeleteHistory = () => {
   const { dark } = useTheme();
@@ -131,7 +130,6 @@ const DeleteHistory = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <ThemeToggle />
             <Link
               to="/snippetvault"
               className="text-xs font-bold uppercase tracking-widest hover:underline pb-1 flex items-center"

@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
 import { useCategory } from "../../../context/CategoryContext";
-import ThemeToggle from "../../../components/ThemeToggle";
 
 const AddTasks = () => {
   const navigate = useNavigate();
@@ -157,7 +156,6 @@ const AddTasks = () => {
             </p>
           </div>
 
-          <ThemeToggle />
         </div>
 
         {/* FORM */}

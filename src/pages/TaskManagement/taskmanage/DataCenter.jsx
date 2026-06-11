@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
-import ThemeToggle from "../../../components/ThemeToggle";
 
 const DataCenter = () => {
   const { dark } = useTheme();
@@ -156,7 +155,6 @@ const DataCenter = () => {
             </p>
           </div>
 
-          <ThemeToggle />
         </div>
 
         {/* WORKSPACE STATS SUMMARY SECTION */}

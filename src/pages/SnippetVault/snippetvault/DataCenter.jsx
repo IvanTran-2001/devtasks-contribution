@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
-import ThemeToggle from "../../../components/ThemeToggle";
 
 const DataCenter = () => {
   const { dark } = useTheme();
@@ -168,7 +167,6 @@ const DataCenter = () => {
               Backup & restore your snippet vault
             </p>
           </div>
-          <ThemeToggle />
         </div>
 
         {/* VAULT INVENTORY STATS */}

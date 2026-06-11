@@ -3,8 +3,6 @@ import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
 import { useCategory } from "../../../context/CategoryContext";
-import ThemeToggle from "../../../components/ThemeToggle";
-
 const FILTERS = ["ALL", "ACTIVE", "COMPLETED"];
 
 const ListTasks = () => {
@@ -336,7 +334,6 @@ const ListTasks = () => {
             Task List
           </h1>
 
-          <ThemeToggle />
         </div>
 
         {/* Search */}

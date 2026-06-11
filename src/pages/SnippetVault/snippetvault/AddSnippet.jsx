@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
-import ThemeToggle from "../../../components/ThemeToggle";
-
 const DEFAULT_CATEGORIES = ["GIT", "DOCKER", "NPM", "OTHER"];
 
 const AddSnippet = () => {
@@ -250,7 +248,6 @@ const AddSnippet = () => {
               Store a new template block in your developer vault
             </p>
           </div>
-          <ThemeToggle />
         </div>
 
         {/* Form and Preview Layout (Dual-Column grid on larger screens) */}
