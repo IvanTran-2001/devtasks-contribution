@@ -125,7 +125,7 @@ const RegexTester = () => {
 
   return (
     <div
-      className={`min-h-screen px-4 sm:px-6 py-8 flex items-center justify-center transition-colors duration-300 overflow-y-auto overflow-x-hidden relative ${
+      className={`h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-hidden relative flex flex-col justify-center ${
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
@@ -149,7 +149,7 @@ const RegexTester = () => {
 
       {/* Main card */}
       <div
-        className={`relative z-10 w-[85%] max-w-none rounded-[32px] border shadow-2xl overflow-hidden transition-all duration-300 ${
+        className={`relative z-10 w-full max-w-5xl mx-auto rounded-[32px] border shadow-xl flex flex-col max-h-full overflow-hidden transition-all duration-300 ${
           dark ? "bg-zinc-900 border-zinc-800" : "bg-white border-neutral-200"
         }`}
       >
@@ -161,9 +161,32 @@ const RegexTester = () => {
         />
 
         {/* Header */}
-        <div className="px-6 sm:px-10 pt-8 sm:pt-10">
+        <div className="px-5 sm:px-8 pt-6 sm:pt-8 flex items-center gap-3">
+          <Link
+            to="/devutilities"
+            className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
+              dark
+                ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
+                : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
+            }`}
+            title="Back to Workspace"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </Link>
           <h1
-            className={`text-2xl sm:text-3xl font-black uppercase tracking-tight transition-colors duration-300 ${
+            className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
               dark ? "text-white" : "text-black"
             }`}
           >
@@ -172,7 +195,7 @@ const RegexTester = () => {
         </div>
 
         {/* Content area */}
-        <div className="p-6 sm:p-10">
+        <div className="p-5 sm:p-6 flex-1 overflow-y-auto min-h-0">
 
           {/* ── TOP PANEL: Pattern + Flags + Literal preview ── */}
           <div className="flex flex-col gap-4 mb-6">
@@ -207,66 +230,94 @@ const RegexTester = () => {
               />
             </div>
 
-            {/* Flags + Literal preview row */}
-            <div className="flex flex-wrap items-end gap-6">
+            {/* Flags + Literal preview + Actions row */}
+            <div className="flex flex-wrap items-end justify-between gap-6 w-full">
 
-              {/* Flags */}
-              <div className="flex flex-col space-y-2">
-                <label
-                  className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
-                    dark ? "text-zinc-400" : "text-neutral-500"
-                  }`}
-                >
-                  Flags
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {FLAG_DEFS.map((flag) => (
-                    <button
-                      key={flag.key}
-                      type="button"
-                      title={flag.title}
-                      onClick={() => toggleFlag(flag.key)}
-                      className={`px-4 py-2 rounded-xl border font-black text-xs uppercase tracking-widest transition-all duration-300 active:scale-95 ${
-                        flags[flag.key]
-                          ? dark
-                            ? "bg-white text-black border-white"
-                            : "bg-black text-white border-black"
-                          : dark
-                          ? "border-zinc-700 text-zinc-300 hover:border-white hover:text-white"
-                          : "border-neutral-200 text-zinc-600 hover:border-black hover:text-black"
-                      }`}
-                    >
-                      {flag.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Regex literal preview */}
-              {regexLiteral && (
+              <div className="flex flex-wrap items-end gap-6">
+                {/* Flags */}
                 <div className="flex flex-col space-y-2">
                   <label
                     className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
                       dark ? "text-zinc-400" : "text-neutral-500"
                     }`}
                   >
-                    Regex Literal
+                    Flags
                   </label>
-                  <span
-                    className={`font-mono text-sm px-4 py-2 rounded-2xl border select-all transition-colors duration-300 ${
-                      error
-                        ? dark
-                          ? "bg-zinc-950 border-zinc-700 text-zinc-500 line-through"
-                          : "bg-neutral-100 border-neutral-300 text-zinc-400 line-through"
-                        : dark
-                        ? "bg-zinc-950 border-zinc-700 text-zinc-300"
-                        : "bg-neutral-100 border-neutral-300 text-zinc-600"
-                    }`}
-                  >
-                    {regexLiteral}
-                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {FLAG_DEFS.map((flag) => (
+                      <button
+                        key={flag.key}
+                        type="button"
+                        title={flag.title}
+                        onClick={() => toggleFlag(flag.key)}
+                        className={`px-4 py-2 rounded-xl border font-black text-xs uppercase tracking-widest transition-all duration-300 active:scale-95 ${
+                          flags[flag.key]
+                            ? dark
+                              ? "bg-white text-black border-white"
+                              : "bg-black text-white border-black"
+                            : dark
+                            ? "border-zinc-700 text-zinc-300 hover:border-white hover:text-white"
+                            : "border-neutral-200 text-zinc-600 hover:text-black hover:text-black"
+                        }`}
+                      >
+                        {flag.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              )}
+
+                {/* Regex literal preview */}
+                {regexLiteral && (
+                  <div className="flex flex-col space-y-2">
+                    <label
+                      className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
+                        dark ? "text-zinc-400" : "text-neutral-500"
+                      }`}
+                    >
+                      Regex Literal
+                    </label>
+                    <span
+                      className={`font-mono text-sm px-4 py-2 rounded-2xl border select-all transition-colors duration-300 ${
+                        error
+                          ? dark
+                            ? "bg-zinc-950 border-zinc-700 text-zinc-500 line-through"
+                            : "bg-neutral-100 border-neutral-300 text-zinc-400 line-through"
+                          : dark
+                          ? "bg-zinc-950 border-zinc-700 text-zinc-300"
+                          : "bg-neutral-100 border-neutral-300 text-zinc-600"
+                      }`}
+                    >
+                      {regexLiteral}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Action buttons aligned to the right side end */}
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleClear}
+                  className={`px-4 py-2 rounded-xl border font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 active:scale-95 ${
+                    dark
+                      ? "bg-zinc-800 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500"
+                      : "bg-white border-neutral-200 text-zinc-600 hover:text-black hover:border-neutral-400"
+                  }`}
+                >
+                  Clear
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCopyPattern}
+                  className={`px-4 py-2 rounded-xl border font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 active:scale-95 ${
+                    dark
+                      ? "bg-zinc-800 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500"
+                      : "bg-white border-neutral-200 text-zinc-600 hover:text-black hover:border-neutral-400"
+                  }`}
+                >
+                  Copy Pattern
+                </button>
+              </div>
 
             </div>
 
@@ -293,15 +344,13 @@ const RegexTester = () => {
           </div>
 
           {/* ── TWO-COLUMN GRID ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-5">
 
             {/* LEFT: Test Text */}
-            <div className="group flex flex-col space-y-2">
+            <div className="flex flex-col space-y-2">
               <label
                 className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
-                  dark
-                    ? "text-zinc-400 group-focus-within:text-white"
-                    : "text-neutral-500 group-focus-within:text-black"
+                  dark ? "text-zinc-400" : "text-neutral-500"
                 }`}
               >
                 Test Text
@@ -311,7 +360,7 @@ const RegexTester = () => {
                 onChange={(e) => setTestText(e.target.value)}
                 placeholder="Enter test string here..."
                 spellCheck={false}
-                className={`w-full h-72 px-4 py-3 rounded-2xl border text-sm font-mono outline-none transition-all duration-300 resize-none ${
+                className={`w-full h-36 px-4 py-3 rounded-2xl border text-sm font-mono outline-none transition-all duration-300 resize-none ${
                   dark
                     ? "bg-zinc-950 border-zinc-800 text-zinc-200 placeholder-zinc-600 focus:border-white focus:ring-1 focus:ring-white"
                     : "bg-neutral-50 border-neutral-200 text-zinc-800 placeholder-neutral-400 focus:border-black focus:ring-1 focus:ring-black"
@@ -320,145 +369,105 @@ const RegexTester = () => {
             </div>
 
             {/* RIGHT: Match stats + highlighted preview + match list */}
-            <div className="flex flex-col gap-4">
-
-              {/* Match count label */}
-              <div>
-                <label
-                  className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
-                    dark ? "text-zinc-400" : "text-neutral-500"
-                  }`}
-                >
-                  {matchCountLabel ?? "Matches"}
-                </label>
-              </div>
-
-              {/* Highlighted preview */}
-              <div
-                className={`w-full min-h-28 px-4 py-3 rounded-2xl border text-sm font-mono transition-all duration-300 leading-relaxed whitespace-pre-wrap break-all ${
-                  dark
-                    ? "bg-zinc-950/50 border-zinc-800"
-                    : "bg-neutral-100 border-neutral-200"
+            <div className="flex flex-col space-y-2">
+              <label
+                className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
+                  dark ? "text-zinc-400" : "text-neutral-500"
                 }`}
               >
-                {testText ? (
-                  <HighlightedText
-                    text={testText}
-                    matches={error ? [] : matchResults}
-                    dark={dark}
-                  />
-                ) : (
-                  <span className={dark ? "text-zinc-600" : "text-zinc-400"}>
-                    Highlighted matches will appear here...
-                  </span>
-                )}
-              </div>
-
-              {/* Match list with capturing groups */}
-              {!error && matchResults.length > 0 && (
+                {matchCountLabel ?? "Matches"}
+              </label>
+              
+              <div className="flex flex-col gap-3 flex-1 min-h-0">
                 <div
-                  className={`rounded-2xl border overflow-hidden transition-colors duration-300 ${
-                    dark ? "border-zinc-800" : "border-neutral-200"
+                  className={`w-full h-36 overflow-y-auto px-4 py-3 rounded-2xl border text-sm font-mono transition-all duration-300 leading-relaxed whitespace-pre-wrap break-all ${
+                    dark
+                      ? "bg-zinc-950/50 border-zinc-800 text-zinc-200"
+                      : "bg-neutral-100 border-neutral-200 text-zinc-800"
                   }`}
                 >
+                  {testText ? (
+                    <HighlightedText
+                      text={testText}
+                      matches={error ? [] : matchResults}
+                      dark={dark}
+                    />
+                  ) : (
+                    <span className={dark ? "text-zinc-600" : "text-zinc-400"}>
+                      Highlighted matches will appear here...
+                    </span>
+                  )}
+                </div>
+
+                {/* Match list with capturing groups */}
+                {!error && matchResults.length > 0 && (
                   <div
-                    className={`max-h-48 overflow-y-auto divide-y ${
-                      dark ? "divide-zinc-800" : "divide-neutral-100"
+                    className={`rounded-2xl border overflow-hidden transition-colors duration-300 ${
+                      dark ? "border-zinc-800" : "border-neutral-200"
                     }`}
                   >
-                    {matchResults.map((match) => (
-                      <div
-                        key={match.matchIndex}
-                        className={`px-4 py-3 text-xs font-mono transition-colors duration-300 ${
-                          dark ? "text-zinc-300" : "text-zinc-700"
-                        }`}
-                      >
-                        <div className="flex items-baseline gap-2 mb-1">
-                          <span className="font-black uppercase tracking-widest">
-                            Match {match.matchIndex}
-                          </span>
-                          <span
-                            className={`text-xs font-normal normal-case tracking-normal ${
-                              dark ? "text-zinc-500" : "text-zinc-400"
-                            }`}
-                          >
-                            index {match.index}–{match.end - 1}
-                          </span>
-                        </div>
+                    <div
+                      className={`max-h-24 overflow-y-auto divide-y ${
+                        dark ? "divide-zinc-800" : "divide-neutral-100"
+                      }`}
+                    >
+                      {matchResults.map((match) => (
                         <div
-                          className={`truncate ${
-                            dark ? "text-zinc-200" : "text-zinc-800"
+                          key={match.matchIndex}
+                          className={`px-4 py-2.5 text-xs font-mono transition-colors duration-300 ${
+                            dark ? "text-zinc-300" : "text-zinc-700"
                           }`}
                         >
-                          &ldquo;{match.value}&rdquo;
-                        </div>
-                        {match.groups.length > 0 && (
+                          <div className="flex items-baseline gap-2 mb-0.5">
+                            <span className="font-black uppercase tracking-widest text-[10px]">
+                              Match {match.matchIndex}
+                            </span>
+                            <span
+                              className={`text-[10px] font-normal normal-case tracking-normal ${
+                                dark ? "text-zinc-500" : "text-zinc-400"
+                              }`}
+                            >
+                              index {match.index}–{match.end - 1}
+                            </span>
+                          </div>
                           <div
-                            className={`mt-1.5 pl-3 border-l flex flex-col gap-0.5 ${
-                              dark ? "border-zinc-700" : "border-neutral-300"
+                            className={`truncate ${
+                              dark ? "text-zinc-200" : "text-zinc-800"
                             }`}
                           >
-                            {match.groups.map((group) => (
-                              <div
-                                key={group.groupNum}
-                                className={dark ? "text-zinc-500" : "text-zinc-400"}
-                              >
-                                Group {group.groupNum}: {group.value}
-                              </div>
-                            ))}
+                            &ldquo;{match.value}&rdquo;
                           </div>
-                        )}
-                      </div>
-                    ))}
+                          {match.groups.length > 0 && (
+                            <div
+                              className={`mt-1 pl-2 border-l flex flex-col gap-0.5 ${
+                                dark ? "border-zinc-700" : "border-neutral-300"
+                              }`}
+                            >
+                              {match.groups.map((group) => (
+                                <div
+                                  key={group.groupNum}
+                                  className={dark ? "text-zinc-500 text-[10px]" : "text-zinc-400 text-[10px]"}
+                                >
+                                  Group {group.groupNum}: {group.value}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
-
+                )}
+              </div>
             </div>
 
           </div>
 
-          {/* ── ACTION BUTTONS ── */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {[
-              { label: "Clear", action: handleClear },
-              { label: "Copy Pattern", action: handleCopyPattern },
-            ].map(({ label, action }) => (
-              <button
-                key={label}
-                type="button"
-                onClick={action}
-                className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest border transition-all duration-200 hover:scale-105 active:scale-95 ${
-                  dark
-                    ? "bg-zinc-800 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500"
-                    : "bg-white border-neutral-200 text-zinc-600 hover:text-black hover:border-neutral-400"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+
 
         </div>
 
-        {/* Footer navigation */}
-        <div
-          className={`mt-4 border-t px-6 sm:px-10 pb-8 pt-6 ${
-            dark ? "border-zinc-800" : "border-neutral-100"
-          }`}
-        >
-          <Link
-            to="/devutilities"
-            className={`inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-widest transition-all duration-300 ${
-              dark
-                ? "text-neutral-400 hover:text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
-          >
-            <span>&larr;</span>
-            <span>Back to Workspace</span>
-          </Link>
-        </div>
+
 
       </div>
     </div>

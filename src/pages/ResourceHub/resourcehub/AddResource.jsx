@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
-import ThemeToggle from "../../../components/ThemeToggle";
 import { toast } from "sonner";
 
 const categories = ["GENERAL", "LOCALHOST", "STAGING", "FIGMA", "DOCUMENTATION"];
@@ -137,7 +136,7 @@ const AddResource = () => {
 
   return (
     <div
-      className={`min-h-screen px-4 sm:px-6 py-8 flex items-center justify-center transition-colors duration-300 overflow-hidden relative ${
+      className={`h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-hidden relative flex flex-col justify-center ${
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
@@ -156,7 +155,7 @@ const AddResource = () => {
       />
 
       <div
-        className={`relative z-10 w-[85%] max-w-none rounded-[32px] border shadow-2xl overflow-hidden transition-all duration-300 ${
+        className={`relative z-10 w-[85%] max-w-none mx-auto rounded-[32px] border shadow-xl flex flex-col max-h-full overflow-hidden transition-all duration-300 ${
           dark ? "bg-zinc-900 border-zinc-800" : "bg-white border-neutral-200"
         }`}
       >
@@ -166,25 +165,49 @@ const AddResource = () => {
           }`}
         />
 
-        <div className="flex items-start justify-between px-6 sm:px-10 pt-8 sm:pt-10 gap-4">
-          <div>
-            <h1
-              className={`text-2xl sm:text-3xl font-black uppercase tracking-tight transition-colors duration-300 ${
-                dark ? "text-white" : "text-black"
+        <div className="px-5 sm:px-8 pt-6 sm:pt-8 flex items-start justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <Link
+              to="/resourcehub"
+              className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
+                dark
+                  ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
+                  : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
               }`}
+              title="Back to Workspace"
             >
-              {isEdit ? "Edit Resource" : "Add New Resource"}
-            </h1>
-            <p className="text-xs sm:text-sm text-neutral-400 mt-1">
-              Save project links, docs, designs, and staging references
-            </p>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </Link>
+            <div>
+              <h1
+                className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
+                  dark ? "text-white" : "text-black"
+                }`}
+              >
+                {isEdit ? "Edit Resource" : "Add New Resource"}
+              </h1>
+              <p className="text-xs text-neutral-400 mt-0.5">
+                Save project links, docs, designs, and staging references
+              </p>
+            </div>
           </div>
-          <ThemeToggle />
         </div>
 
-        <div className="p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10">
-          <form onSubmit={handleSubmit} className="space-y-6 flex flex-col justify-between lg:col-span-7">
-            <div className="space-y-5">
+        <div className="p-5 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 overflow-y-auto flex-1 min-h-0">
+          <form onSubmit={handleSubmit} className="space-y-4 flex flex-col justify-between lg:col-span-7">
+            <div className="space-y-4">
               <div className="group flex flex-col space-y-2">
                 <label
                   className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
@@ -277,7 +300,7 @@ const AddResource = () => {
                   value={resource.description}
                   onChange={(e) => setResource({...resource, description: e.target.value})}
                   placeholder="Add a short note about when to use this resource."
-                  rows={5}
+                  rows={3}
                   className={`w-full px-4 py-3 rounded-2xl border text-sm outline-none transition-all duration-300 resize-none ${
                     dark
                       ? "bg-zinc-950 border-zinc-800 text-white placeholder-zinc-700 focus:border-white focus:ring-1 focus:ring-white"
@@ -323,7 +346,7 @@ const AddResource = () => {
 
               {/* Resource Card Mock */}
               <div
-                className={`p-6 rounded-[24px] border flex flex-col justify-between min-h-[280px] h-full transition-all duration-500 relative overflow-hidden group ${
+                className={`p-5 rounded-[24px] border flex flex-col justify-between min-h-[240px] h-full transition-all duration-500 relative overflow-hidden group ${
                   dark ? "bg-zinc-950/40 border-zinc-800" : "bg-neutral-50 border-neutral-250"
                 }`}
               >
@@ -371,14 +394,14 @@ const AddResource = () => {
                       Url
                     </label>
                     <div
-                      className={`p-4 rounded-xl border font-mono text-xs overflow-x-auto max-h-[70px] transition-all duration-300 select-all ${
+                      className={`p-3 rounded-xl border font-mono text-xs overflow-x-auto max-h-[56px] transition-all duration-300 select-all ${
                         dark
                           ? "bg-zinc-900 border-zinc-800 text-zinc-300"
                           : "bg-white border-neutral-200 text-neutral-600"
                       }`}
                     >
                       {resource.url.trim() ? (
-                        <pre className="whitespace-pre-wrap break-all font-semibold">{resource.url}</pre>
+                        <pre className="whitespace-pre-wrap break-all font-semibold text-[11px]">{resource.url}</pre>
                     ) : (
                       <span className="text-neutral-400 italic font-sans">
                         // resource url preview will appear here...
@@ -388,9 +411,9 @@ const AddResource = () => {
                   </div>
 
                   {/* Description preview */}
-                  <div className={`flex flex-col gap-2`}>
+                  <div className={`flex flex-col gap-1.5`}>
                     <label
-                      className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
+                      className={`text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${
                         dark
                           ? "text-zinc-400 group-focus-within:text-white"
                           : "text-neutral-500 group-focus-within:text-black"
@@ -399,7 +422,7 @@ const AddResource = () => {
                       Description
                     </label>
                     <div
-                      className={`p-4 rounded-xl border font-mono text-xs overflow-x-auto max-h-[140px] transition-all duration-300 select-all ${
+                      className={`p-3 rounded-xl border font-mono text-xs overflow-x-auto max-h-[90px] transition-all duration-300 select-all ${
                         dark
                           ? "bg-zinc-900 border-zinc-800 text-zinc-300"
                           : "bg-white border-neutral-200 text-neutral-600"
@@ -432,19 +455,7 @@ const AddResource = () => {
           </div>
         </div>
 
-        <div className="px-6 sm:px-10 pb-8 flex items-center border-t border-neutral-100 dark:border-zinc-800 pt-6">
-          <Link
-            to="/resourcehub"
-            className={`inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-widest transition-all duration-300 ${
-              dark
-                ? "text-neutral-400 hover:text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
-          >
-            <span>&larr;</span>
-            <span>Back to Workspace</span>
-          </Link>
-        </div>
+
       </div>
     </div>
   );

@@ -50,7 +50,7 @@ const JsonFormatter = () => {
   ];
   return (
     <div
-      className={`min-h-screen px-4 sm:px-6 py-8 flex items-center justify-center transition-colors duration-300 overflow-y-auto overflow-x-hidden relative ${
+      className={`h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-hidden relative flex flex-col justify-center ${
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
@@ -72,7 +72,7 @@ const JsonFormatter = () => {
       />
 
       <div
-        className={`relative z-10 w-[85%] max-w-none rounded-[32px] border shadow-2xl overflow-hidden transition-all duration-300 ${
+        className={`relative z-10 w-[85%] max-w-none mx-auto rounded-[32px] border shadow-xl flex flex-col max-h-full overflow-hidden transition-all duration-300 ${
           dark ? "bg-zinc-900 border-zinc-800" : "bg-white border-neutral-200"
         }`}
       >
@@ -82,19 +82,40 @@ const JsonFormatter = () => {
           }`}
         />
 
-        <div className="flex items-start justify-between px-6 sm:px-10 pt-8 sm:pt-10 gap-4">
-          <div>
-            <h1
-              className={`text-2xl sm:text-3xl font-black uppercase tracking-tight transition-colors duration-300 ${
-                dark ? "text-white" : "text-black"
-              }`}
+        <div className="px-5 sm:px-8 pt-6 sm:pt-8 flex items-center gap-3">
+          <Link
+            to="/devutilities"
+            className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
+              dark
+                ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
+                : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
+            }`}
+            title="Back to Workspace"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              JSON Formatter
-            </h1>
-          </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </Link>
+          <h1
+            className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
+              dark ? "text-white" : "text-black"
+            }`}
+          >
+            JSON Formatter
+          </h1>
         </div>
 
-        <div className="w-full md:h-[464px] p-6 sm:p-10">
+        <div className="w-full md:h-[464px] p-5 sm:p-8 overflow-y-auto">
           <div className="w-full h-full flex flex-col md:flex-row gap-4"> 
             <div className="group w-full flex flex-col space-y-2">
               <label
@@ -153,7 +174,7 @@ const JsonFormatter = () => {
                     : "bg-neutral-50 border-neutral-300 text-black placeholder-neutral-400 focus:border-black focus:ring-1 focus:ring-black"
                 }`}
               />
-              <div className={"flex justify-end"}>
+              <div className="flex justify-end">
                 <button
                   onClick={handleCopy}
                   type="button"
@@ -170,19 +191,7 @@ const JsonFormatter = () => {
           </div>
         </div>
 
-        <div className="px-6 sm:px-10 pb-8 flex items-center border-t border-neutral-100 dark:border-zinc-800 pt-6">
-          <Link
-            to="/devutilities"
-            className={`inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-widest transition-all duration-300 ${
-              dark
-                ? "text-neutral-400 hover:text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
-          >
-            <span>&larr;</span>
-            <span>Back to Workspace</span>
-          </Link>
-        </div>
+
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
-import ThemeToggle from "../../../components/ThemeToggle";
 import { toast } from "sonner";
 
 const sampleResources = [
@@ -284,146 +283,175 @@ function ListResources() {
 
   return (
     <div
-      className={`${t.wrapper} min-h-screen px-4 py-8 font-sans transition-colors duration-300 sm:px-6 lg:px-8`}
+      className={`${t.wrapper} h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-hidden relative flex flex-col justify-center font-sans`}
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
-        <header className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <p
-              className={`${t.eyebrow} mb-3 text-xs font-black uppercase tracking-widest`}
-            >
-              Saved developer references
-            </p>
-            <h1 className="text-4xl font-black uppercase tracking-tight sm:text-5xl">
-              Resource Hub
-            </h1>
-            <p className={`${t.subtitle} mt-4 text-base font-medium leading-7`}>
-              Browse curated documentation, guides, and tools for building
-              better projects faster.
-            </p>
-          </div>
+      <title>Resource Hub | DevTasks</title>
+      <meta name="description" content="Browse curated documentation, guides, and tools for building better projects faster." />
 
-          <div className="flex flex-wrap items-center gap-3">
-            <ThemeToggle />
+      {/* AMBIENT GLOWS */}
+      <div
+        className={`absolute top-[-10%] right-[-10%] w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] rounded-full blur-[100px] opacity-30 transition-colors duration-500 ${
+          dark ? "bg-zinc-800" : "bg-neutral-200"
+        }`}
+      />
+      <div
+        className={`absolute bottom-[-10%] left-[-10%] w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] rounded-full blur-[100px] opacity-30 transition-colors duration-500 ${
+          dark ? "bg-zinc-900" : "bg-neutral-100"
+        }`}
+      />
+
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col max-h-full overflow-hidden gap-8">
+        {/* Header */}
+        <header className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl flex items-center gap-3">
             <Link
               to="/resourcehub"
-              className={`${t.backLink} w-fit rounded-full border px-5 py-2 text-sm font-bold uppercase tracking-wide transition-all`}
+              className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
+                dark
+                  ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
+                  : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
+              }`}
+              title="Back to Workspace"
             >
-              Back to Workspace
-            </Link>
-          </div>
-        </header>
-
-        <section className={`${t.panel} rounded-[2rem] border p-4 sm:p-5`}>
-          <div className="relative block w-full lg:max-w-xl">
-            <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400">
               <svg
-                className="h-5 w-5"
+                className="w-4 h-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  strokeWidth={2.5}
+                  d="M15 19l-7-7 7-7"
                 />
               </svg>
-            </span>
-            <input
-              type="text"
-              placeholder="Search resources..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className={`${t.input} w-full rounded-2xl border py-3 pl-12 pr-4 text-sm font-medium outline-none transition-all`}
-            />
-          </div>
-
-          <div className="mt-4 flex flex-wrap gap-2">
-            {filterTags.map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                onClick={() => setSelectedTag(tag)}
-                className={`${
-                  selectedTag === tag ? t.chipActive : t.chip
-                } rounded-full border px-4 py-2 text-xs font-black uppercase tracking-widest transition-all`}
+            </Link>
+            <div>
+              <p
+                className={`${t.eyebrow} text-xs font-black uppercase tracking-widest`}
               >
-                {tag}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <main className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {processedResources.length === 0 ? (
-            <div className="col-span-full py-12 text-center text-zinc-500">
-              No structural references matched your filters.
+                Saved developer references
+              </p>
+              <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1">
+                Resource Hub
+              </h1>
             </div>
-          ) : (
-            processedResources.map((resource, index) => (
-              <article
-                key={resource.id || index}
-                className={`${t.card} group flex min-h-[280px] flex-col justify-between rounded-[1.75rem] border p-5 transition-all duration-300`}
-              >
-                <div>
-                  <div className="mb-5 flex items-center justify-between gap-4">
-                    <span
-                      className={`${t.badge} rounded-full border px-3 py-1 text-[11px] font-black uppercase tracking-wider`}
+          </div>
+        </header>
+
+        <div className="overflow-y-auto flex-1 min-h-0 pb-6 space-y-6">
+          <section className={`${t.panel} rounded-[2rem] border p-4 sm:p-5`}>
+            <div className="relative block w-full lg:max-w-xl">
+              <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400">
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </span>
+              <input
+                type="text"
+                placeholder="Search resources..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className={`${t.input} w-full rounded-2xl border py-3 pl-12 pr-4 text-sm font-medium outline-none transition-all`}
+              />
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {filterTags.map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => setSelectedTag(tag)}
+                  className={`${
+                    selectedTag === tag ? t.chipActive : t.chip
+                  } rounded-full border px-4 py-2 text-xs font-black uppercase tracking-widest transition-all`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <main className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {processedResources.length === 0 ? (
+              <div className="col-span-full py-12 text-center text-zinc-500">
+                No structural references matched your filters.
+              </div>
+            ) : (
+              processedResources.map((resource, index) => (
+                <article
+                  key={resource.id || index}
+                  className={`${t.card} group flex min-h-[280px] flex-col justify-between rounded-[1.75rem] border p-5 transition-all duration-300`}
+                >
+                  <div>
+                    <div className="mb-5 flex items-center justify-between gap-4">
+                      <span
+                        className={`${t.badge} rounded-full border px-3 py-1 text-[11px] font-black uppercase tracking-wider`}
+                      >
+                        {resource.category}
+                      </span>
+                      <span
+                        className={`${t.icon} flex h-10 w-10 items-center justify-center rounded-2xl transition-all group-hover:scale-110`}
+                      >
+                        {getCategoryIcon(resource.category)}
+                      </span>
+                    </div>
+
+                    <h2
+                      className={`${t.heading} text-xl font-black tracking-tight`}
                     >
-                      {resource.category}
-                    </span>
-                    <span
-                      className={`${t.icon} flex h-10 w-10 items-center justify-center rounded-2xl transition-all group-hover:scale-110`}
+                      {resource.title}
+                    </h2>
+                    <p
+                      className={`${t.body} mt-3 text-sm font-medium leading-6 line-clamp-3`}
                     >
-                      {getCategoryIcon(resource.category)}
-                    </span>
+                      {resource.description}
+                    </p>
                   </div>
 
-                  <h2
-                    className={`${t.heading} text-xl font-black tracking-tight`}
-                  >
-                    {resource.title}
-                  </h2>
-                  <p
-                    className={`${t.body} mt-3 text-sm font-medium leading-6 line-clamp-3`}
-                  >
-                    {resource.description}
-                  </p>
-                </div>
-
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a
-                    href={resource.url || "#"}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`${t.primaryButton} flex-1 rounded-2xl px-4 py-3 text-center text-sm font-bold transition-all`}
-                  >
-                    View Resource
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy(resource.url)}
-                    className={`${t.secondaryButton} flex-1 rounded-2xl border px-4 py-3 text-sm font-bold transition-all`}
-                  >
-                    Copy URL
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handleDelete(resource.id || index, resource.title)
-                    }
-                    className="rounded-2xl border border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white px-4 py-3 text-sm font-bold transition-all"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </article>
-            ))
-          )}
-        </main>
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <a
+                      href={resource.url || "#"}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`${t.primaryButton} flex-1 rounded-2xl px-4 py-3 text-center text-sm font-bold transition-all`}
+                    >
+                      View Resource
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(resource.url)}
+                      className={`${t.secondaryButton} flex-1 rounded-2xl border px-4 py-3 text-sm font-bold transition-all`}
+                    >
+                      Copy URL
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleDelete(resource.id || index, resource.title)
+                      }
+                      className="rounded-2xl border border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white px-4 py-3 text-sm font-bold transition-all"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </article>
+              ))
+            )}
+          </main>
+        </div>
       </div>
     </div>
   );
