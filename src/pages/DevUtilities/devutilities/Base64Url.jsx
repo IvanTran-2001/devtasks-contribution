@@ -1,8 +1,90 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
+
+const MODES = [
+  { key: "base64", label: "Base64" },
+  { key: "url", label: "URL" },
+];
+
+const encodeBase64 = (str) => {
+  const bytes = new TextEncoder().encode(str);
+  let binary = "";
+  bytes.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+  return btoa(binary);
+};
+
+const decodeBase64 = (str) => {
+  const binary = atob(str);
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+};
 
 const Base64Url = () => {
   const { dark } = useTheme();
+  const [mode, setMode] = useState("base64");
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
+
+  const handleModeChange = (newMode) => {
+    setMode(newMode);
+    setOutput("");
+  };
+
+  const handleEncode = () => {
+    if (!input.trim()) return;
+    try {
+      if (mode === "base64") {
+        setOutput(encodeBase64(input));
+      } else {
+        setOutput(encodeURIComponent(input));
+      }
+    } catch (error) {
+      toast.error("Failed to encode input.");
+    }
+  };
+
+  const handleDecode = () => {
+    if (!input.trim()) return;
+    try {
+      if (mode === "base64") {
+        setOutput(decodeBase64(input));
+      } else {
+        setOutput(decodeURIComponent(input));
+      }
+    } catch (error) {
+      toast.error(
+        mode === "base64"
+          ? "Invalid Base64 string."
+          : "Invalid URL-encoded string."
+      );
+    }
+  };
+
+  const handleClear = () => {
+    setInput("");
+    setOutput("");
+  };
+
+  const handleCopy = async () => {
+    if (!output) return;
+    try {
+      await navigator.clipboard.writeText(output);
+      toast.success("Copied to clipboard");
+    } catch (error) {
+      toast.error("Failed to copy");
+    }
+  };
+
+  const actionButtons = [
+    { label: "Encode", onClick: handleEncode },
+    { label: "Decode", onClick: handleDecode },
+    { label: "Clear", onClick: handleClear },
+    { label: "Copy", onClick: handleCopy },
+  ];
 
   return (
     <div
@@ -27,6 +109,32 @@ const Base64Url = () => {
           >
             Base64 Encoder & Decoder
           </h1>
+
+          {/* Mode Selector */}
+          <div
+            className={`flex items-center gap-2 p-1 border rounded-2xl ${
+              dark ? "border-zinc-700 bg-zinc-800" : "border-neutral-200 bg-neutral-50"
+            }`}
+          >
+            {MODES.map((opt) => (
+              <button
+                key={opt.key}
+                type="button"
+                onClick={() => handleModeChange(opt.key)}
+                className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-200 cursor-pointer ${
+                  mode === opt.key
+                    ? dark
+                      ? "bg-white text-black"
+                      : "bg-black text-white"
+                    : dark
+                      ? "text-neutral-400 hover:text-white"
+                      : "text-neutral-400 hover:text-black"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Content Area */}
@@ -42,14 +150,15 @@ const Base64Url = () => {
                   Input
                 </label>
                 <button className={`text-xs font-bold transition-colors ${dark ? "text-zinc-500 hover:text-white" : "text-zinc-400 hover:text-black"}`}>
-                
                 </button>
               </div>
               <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
                 className={`w-full h-64 p-4 rounded-xl border resize-none focus:outline-none focus:ring-2 focus:ring-zinc-500 transition-colors ${
                   dark ? "bg-zinc-950 border-zinc-800 text-zinc-200" : "bg-neutral-50 border-neutral-200 text-zinc-800"
                 }`}
-                placeholder="Enter text or Base64 here"
+                placeholder={mode === "base64" ? "Enter text or Base64 here" : "Enter text or URL-encoded string here"}
               ></textarea>
             </div>
 
@@ -59,9 +168,12 @@ const Base64Url = () => {
                 Output
               </label>
               <textarea
+                value={output}
                 readOnly
                 className={`w-full h-64 p-4 rounded-xl border resize-none focus:outline-none transition-colors ${
-                  dark ? "bg-zinc-900/50 border-zinc-800 text-zinc-500" : "bg-neutral-100 border-neutral-200 text-zinc-400"
+                  dark
+                    ? `bg-zinc-900/50 border-zinc-800 ${output ? "text-zinc-200" : "text-zinc-500"}`
+                    : `bg-neutral-100 border-neutral-200 ${output ? "text-zinc-800" : "text-zinc-400"}`
                 }`}
                 placeholder="Result will appear here..."
               ></textarea>
@@ -71,16 +183,18 @@ const Base64Url = () => {
 
           {/* Action Buttons (Centered at bottom) */}
           <div className="flex flex-wrap justify-center gap-4">
-            {["Encode", "Decode"].map((btn) => (
+            {actionButtons.map((btn) => (
               <button
-                key={btn}
+                key={btn.label}
+                type="button"
+                onClick={btn.onClick}
                 className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest border transition-all duration-200 hover:scale-105 ${
                   dark
                     ? "bg-zinc-800 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500"
                     : "bg-white border-neutral-200 text-zinc-600 hover:text-black hover:border-neutral-400"
                 }`}
               >
-                {btn}
+                {btn.label}
               </button>
             ))}
           </div>
