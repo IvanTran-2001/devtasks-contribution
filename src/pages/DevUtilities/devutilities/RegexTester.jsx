@@ -213,15 +213,29 @@ support@company.org`);
           <div className="flex flex-col gap-4 mb-6">
             {/* Pattern input */}
             <div className="group flex flex-col space-y-2">
-              <label
-                className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
-                  dark
-                    ? "text-zinc-400 group-focus-within:text-white"
-                    : "text-neutral-500 group-focus-within:text-black"
-                }`}
-              >
-                Pattern
-              </label>
+              <div className="flex items-center justify-between">
+                <label
+                  className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
+                    dark
+                      ? "text-zinc-400 group-focus-within:text-white"
+                      : "text-neutral-500 group-focus-within:text-black"
+                  }`}
+                >
+                  Pattern
+                </label>
+
+                <button
+                  type="button"
+                  onClick={handleSample}
+                  className={`text-xs font-medium transition-colors duration-300 ${
+                    dark
+                      ? "text-blue-500 hover:text-blue-400"
+                      : "text-blue-600 hover:text-blue-700"
+                  }`}
+                >
+                  Sample
+                </button>
+              </div>
               <input
                 type="text"
                 value={pattern}
@@ -305,17 +319,6 @@ support@company.org`);
 
               {/* Action buttons aligned to the right side end */}
               <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={handleSample}
-                  className={`px-4 py-2 rounded-xl border font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 active:scale-95 ${
-                    dark
-                      ? "bg-zinc-800 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500"
-                      : "bg-white border-neutral-200 text-zinc-600 hover:text-black hover:border-neutral-400"
-                  }`}
-                >
-                  Sample
-                </button>
                 <button
                   type="button"
                   onClick={handleClear}

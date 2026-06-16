@@ -92,7 +92,6 @@ const Base64Url = () => {
   const actionButtons = [
     { label: "Encode", onClick: handleEncode },
     { label: "Decode", onClick: handleDecode },
-    { label: "Sample", onClick: handleSample },
     { label: "Clear", onClick: handleClear },
     { label: "Copy", onClick: handleCopy },
   ];
@@ -173,13 +172,24 @@ const Base64Url = () => {
             <div className="flex flex-col">
               <div className="flex justify-between items-center mb-3">
                 <label
-                  className={`text-xs font-black uppercase tracking-widest ${dark ? "text-zinc-400" : "text-zinc-500"}`}
+                  className={`text-xs font-black uppercase tracking-widest ${
+                    dark ? "text-zinc-400" : "text-zinc-500"
+                  }`}
                 >
                   Input
                 </label>
+
                 <button
-                  className={`text-xs font-bold transition-colors ${dark ? "text-zinc-500 hover:text-white" : "text-zinc-400 hover:text-black"}`}
-                ></button>
+                  type="button"
+                  onClick={handleSample}
+                  className={`text-xs font-medium transition-colors duration-300 ${
+                    dark
+                      ? "text-blue-500 hover:text-blue-400"
+                      : "text-blue-600 hover:text-blue-700"
+                  }`}
+                >
+                  Sample
+                </button>
               </div>
               <textarea
                 value={input}

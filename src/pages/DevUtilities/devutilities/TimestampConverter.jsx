@@ -123,11 +123,25 @@ const TimestampConverter = () => {
 
           {/* Unix Timestamp → Date */}
           <div className={`rounded-3xl border ${t.card} p-6`}>
-            <p
-              className={`text-xs uppercase tracking-widest font-medium mb-5 ${t.subtext}`}
-            >
-              Unix Timestamp → Date
-            </p>
+            <div className="flex items-center justify-between mb-5">
+              <p
+                className={`text-xs uppercase tracking-widest font-medium ${t.subtext}`}
+              >
+                Date → Unix Timestamp
+              </p>
+
+              <button
+                type="button"
+                onClick={handleTimestampSample}
+                className={`text-xs font-medium hover:underline transition-colors duration-300 ${
+                  dark
+                    ? "text-blue-500 hover:text-blue-400"
+                    : "text-blue-600 hover:text-blue-700"
+                }`}
+              >
+                Sample
+              </button>
+            </div>
             <div className="space-y-3">
               <input
                 type="text"
@@ -136,21 +150,12 @@ const TimestampConverter = () => {
                 onChange={(e) => setTimestamp(e.target.value)}
                 className={`w-full px-4 py-3 rounded-xl border text-sm ${t.input}`}
               />
-              <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={handleTimestampConvert}
-                  className={`px-5 py-2.5 rounded-xl text-sm font-medium cursor-pointer ${t.button}`}
-                >
-                  Convert to Date
-                </button>
-
-                <button
-                  onClick={handleTimestampSample}
-                  className={`px-5 py-2.5 rounded-xl text-sm font-medium cursor-pointer ${t.button}`}
-                >
-                  Sample
-                </button>
-              </div>
+              <button
+                onClick={handleTimestampConvert}
+                className={`px-5 py-2.5 rounded-xl text-sm font-medium cursor-pointer ${t.button}`}
+              >
+                Convert to Date
+              </button>
               {convertedDate && (
                 <div
                   className={`px-4 py-3 rounded-xl border text-sm font-mono break-all ${t.result}`}
@@ -163,11 +168,25 @@ const TimestampConverter = () => {
 
           {/* Date → Unix Timestamp */}
           <div className={`rounded-3xl border ${t.card} p-6`}>
-            <p
-              className={`text-xs uppercase tracking-widest font-medium mb-5 ${t.subtext}`}
-            >
-              Date → Unix Timestamp
-            </p>
+            <div className="flex items-center justify-between mb-5">
+              <p
+                className={`text-xs uppercase tracking-widest font-medium ${t.subtext}`}
+              >
+                Unix Timestamp → Date
+              </p>
+
+              <button
+                type="button"
+                onClick={handleDateSample}
+                className={`text-xs font-medium hover:underline transition-colors duration-300 ${
+                  dark
+                    ? "text-blue-500 hover:text-blue-400"
+                    : "text-blue-600 hover:text-blue-700"
+                }`}
+              >
+                Sample
+              </button>
+            </div>
             <div className="space-y-3">
               <input
                 type="datetime-local"
@@ -175,21 +194,12 @@ const TimestampConverter = () => {
                 onChange={(e) => setDateInput(e.target.value)}
                 className={`w-full px-4 py-3 rounded-xl border text-sm ${t.input}`}
               />
-              <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={handleDateConvert}
-                  className={`px-5 py-2.5 rounded-xl text-sm font-medium cursor-pointer ${t.button}`}
-                >
-                  Convert to Timestamp
-                </button>
-
-                <button
-                  onClick={handleDateSample}
-                  className={`px-5 py-2.5 rounded-xl text-sm font-medium cursor-pointer ${t.button}`}
-                >
-                  Sample
-                </button>
-              </div>
+              <button
+                onClick={handleDateConvert}
+                className={`px-5 py-2.5 rounded-xl text-sm font-medium cursor-pointer ${t.button}`}
+              >
+                Convert to Timestamp
+              </button>
               {convertedTimestamp && (
                 <div
                   className={`px-4 py-3 rounded-xl border text-sm font-mono tabular-nums ${t.result}`}

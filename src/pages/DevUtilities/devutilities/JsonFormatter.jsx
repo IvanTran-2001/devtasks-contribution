@@ -59,7 +59,6 @@ const JsonFormatter = () => {
   const buttons = [
     { label: "Format", onClick: handleFormat },
     { label: "Minify", onClick: handleMinify },
-    { label: "Sample", onClick: handleSample },
     { label: "Clear", onClick: handleClear },
   ];
   return (
@@ -120,15 +119,29 @@ const JsonFormatter = () => {
         <div className="w-full md:h-[464px] p-5 sm:p-8 overflow-y-auto">
           <div className="w-full h-full flex flex-col md:flex-row gap-4">
             <div className="group w-full flex flex-col space-y-2">
-              <label
-                className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
-                  dark
-                    ? "text-zinc-400 group-focus-within:text-white"
-                    : "text-neutral-500 group-focus-within:text-black"
-                }`}
-              >
-                Input
-              </label>
+              <div className="flex items-center justify-between">
+                <label
+                  className={`text-xs font-black uppercase tracking-widest transition-colors duration-300 ${
+                    dark
+                      ? "text-zinc-400 group-focus-within:text-white"
+                      : "text-neutral-500 group-focus-within:text-black"
+                  }`}
+                >
+                  Input
+                </label>
+
+                <button
+                  type="button"
+                  onClick={handleSample}
+                  className={`text-xs font-medium transition-colors duration-300 ${
+                    dark
+                      ? "text-blue-500 hover:text-blue-400"
+                      : "text-blue-600 hover:text-blue-700"
+                  }`}
+                >
+                  Sample
+                </button>
+              </div>
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
