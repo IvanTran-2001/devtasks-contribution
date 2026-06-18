@@ -3,30 +3,47 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
 import { marked } from "marked";
+import DOMPurify from "dompurify";
+
+marked.setOptions({
+  gfm: true,
+  breaks: true,
+});
 
 const MarkdownPreviewer = () => {
   const { dark } = useTheme();
 
-  const sampleMarkdown = `# DevTasks Markdown Previewer
+  const sampleMarkdown = `# 🚀 Markdown Previewer
+
+A **live markdown editor** with HTML preview.
 
 ## Features
 
 - Live Preview
 - Copy HTML
+- Download Markdown
 - Dark Mode Support
 
-**Bold Text**
+### Table Example
 
-[Visit DevTasks](https://dev-tasks-beta.vercel.app/)
+| Feature | Status |
+|----------|----------|
+| Preview | ✅ |
+| Copy HTML | ✅ |
+| Download MD | ✅ |
+
+### Code Example
 
 \`\`\`javascript
 console.log("Hello World");
 \`\`\`
+
+[Visit DevTasks](https://dev-tasks-beta.vercel.app/)
 `;
 
   const [input, setInput] = useState(sampleMarkdown);
 
-  const htmlOutput = marked.parse(input || "");
+  const htmlOutput = DOMPurify.sanitize(marked.parse(input || ""));
 
   const handleSample = () => {
     setInput(sampleMarkdown);
@@ -42,6 +59,29 @@ console.log("Hello World");
       toast.success("HTML copied");
     } catch {
       toast.error("Failed to copy");
+    }
+  };
+  const handleDownload = () => {
+    try {
+      const blob = new Blob([input], {
+        type: "text/markdown;charset=utf-8",
+      });
+
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "markdown-preview.md";
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(url);
+
+      toast.success("Markdown downloaded");
+    } catch {
+      toast.error("Download failed");
     }
   };
 
@@ -107,8 +147,6 @@ console.log("Hello World");
                 >
                   Markdown Input
                 </label>
-
-                
               </div>
 
               <textarea
@@ -149,15 +187,25 @@ console.log("Hello World");
               </label>
 
               <div
-                className={`md:h-full h-40 px-4 py-3 rounded-2xl border overflow-auto prose max-w-none ${
+                className={`md:h-full h-40 px-4 py-3 rounded-2xl border overflow-auto prose prose-zinc max-w-none ${
                   dark
-                    ? "bg-zinc-950 border-zinc-800 text-white"
-                    : "bg-neutral-50 border-neutral-300 text-black"
+                    ? "prose-invert bg-zinc-950 border-zinc-800"
+                    : "bg-neutral-50 border-neutral-300"
                 }`}
                 dangerouslySetInnerHTML={{ __html: htmlOutput }}
               />
 
-              <div className="flex justify-end">
+              <div className="flex justify-end gap-3">
+                <button
+                  onClick={handleDownload}
+                  className={`w-40 px-4 py-2 rounded-xl border font-bold text-sm ${
+                    dark
+                      ? "border-white text-white hover:bg-white hover:text-black"
+                      : "border-black text-black hover:bg-black hover:text-white"
+                  }`}
+                >
+                  Download MD
+                </button>
                 <button
                   onClick={handleCopy}
                   className={`w-40 px-4 py-2 rounded-xl border font-bold text-sm ${
