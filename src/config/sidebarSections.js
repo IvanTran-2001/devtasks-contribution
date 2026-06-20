@@ -246,6 +246,11 @@ const SIDEBAR_SECTIONS = [
         description: "Generate CSS flexbox and grid completely offline",
         path: "/devutilities/flexbox-grid-generator",
       },
+      {
+        label: "SQL Formatter",
+        description: "Format sql queries comletely offline",
+        path: "/devutilities/sql-formatter",
+      },
     ],
   },
 ];

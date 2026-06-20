@@ -187,28 +187,12 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/color" element={<ColorConverter />} />
             <Route path="/devutilities/code" element={<CodeSandbox />} />
             <Route path="/devutilities/qrcode" element={<QrCodeGenerator />} />
-            <Route
-              path="/devutilities/text-case"
-              element={<TextCaseConverter />}
-            />
-            <Route
-              path="/devutilities/mock-json"
-              element={<MockJsonGenerator />}
-            />
-            <Route
-              path="/devutilities/markdown-table"
-              element={<MarkdownTableGenerator />}
-            />
-            <Route
-              path="/devutilities/url-parser"
-              element={<UrlParserBuilder />}
-            />
-            <Route path="/devutilities/text-case" element={<TextCaseConverter />} />
-            <Route path="/devutilities/mock-json" element={<MockJsonGenerator />} />
-            <Route path="/devutilities/markdown-table" element={<MarkdownTableGenerator />} />
+            <Route path="/devutilities/text-case-converter" element={<TextCaseConverter />} />
+            <Route path="/devutilities/mock-json-generator" element={<MockJsonGenerator />} />
+            <Route path="/devutilities/flexbox-grid-generator" element={<FlexboxGridGenerator />} />
+            <Route path="/devutilities/markdown-table-genertaor" element={<MarkdownTableGenerator />} />
             <Route path="/devutilities/url-parser" element={<UrlParserBuilder />} />
             <Route path="/devutilities/sql-formatter" element={<SqlFormatter />} />
-            <Route path="/devutilities/jwt-encode" element={<JwtEncoder />} />
 
           </Routes>
         </div>
