@@ -62,6 +62,22 @@ const DevUtilities = () => {
       ),
     },
     {
+  title: "JWT Encoder",
+  description:
+    "Create and sign JWT tokens using HS256, HS384, and HS512 algorithms completely offline.",
+  path: "/devutilities/jwt-encoder",
+  icon: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+      />
+    </svg>
+  ),
+},
+    {
       title: "JSON YAML Converter",
       description:
         "Convert JSON to YAML and YAML to JSON in real time with syntax validation.",
@@ -387,6 +403,12 @@ const DevUtilities = () => {
       description:
         "Beautify messy SQL with proper keyword casing and indentation, or minify to a single line. Fully offline.",
       path: "/devutilities/sql",
+
+    {
+      title: "HTML Entity Converter",
+      description:
+        "Encode and decode HTML/XML entities using named or numeric formats. Fully offline.",
+      path: "/devutilities/html-entity",
       icon: (
         <svg
           className="w-6 h-6"
@@ -399,6 +421,7 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M4 6h16M4 10h16M4 14h10M4 18h6"
+            d="M8 9l-3 3 3 3m8-6l3 3-3 3M13 5l-2 14"
           />
         </svg>
       ),
@@ -419,11 +442,10 @@ const DevUtilities = () => {
         <header className="shrink-0 mb-12 flex flex-col gap-4">
           <Link
             to="/dashboard"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
-              dark
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
                 ? "text-neutral-400 hover:text-white"
                 : "text-neutral-500 hover:text-black"
-            }`}
+              }`}
           >
             <span>← Back to Dashboard</span>
           </Link>

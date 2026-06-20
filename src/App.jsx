@@ -13,6 +13,8 @@ import AddSnippet from "./pages/SnippetVault/snippetvault/AddSnippet";
 import ListSnippets from "./pages/SnippetVault/snippetvault/ListSnippets";
 import DeleteHistorySnippet from "./pages/SnippetVault/snippetvault/DeleteHistory";
 import DataCenterSnippet from "./pages/SnippetVault/snippetvault/DataCenter";
+import HtmlEntityConverter from "./pages/DevUtilities/devutilities/HtmlEntityConverter";
+
 import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 // Resource Hub Imports
 import ResourceHub from "./pages/ResourceHub/ResourceHub";
@@ -38,6 +40,7 @@ import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import QrCodeGenerator from "./pages/DevUtilities/devutilities/QrCodeGenerator";
 import UrlParserBuilder from "./pages/DevUtilities/devutilities/UrlParserBuilder";
 import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
+import JwtEncoder from "./pages/DevUtilities/devutilities/JwtEncoder";
 
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
@@ -76,11 +79,9 @@ function AppInner({ toggleHUD, hudVisible }) {
 
   return (
     <div
-      className={`w-full ${
-        showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
-      } transition-colors duration-300 ${
-        dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
-      }`}
+      className={`w-full ${showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
+        } transition-colors duration-300 ${dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
+        }`}
     >
       <Toaster position="bottom-right" />
       {showNavbar && <Navbar />}
@@ -131,8 +132,12 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities" element={<DevUtilities />} />
             <Route path="/devutilities/regex" element={<RegexTester />} />
             <Route path="/devutilities/json" element={<JsonFormatter />} />
+            <Route
+              path="/devutilities/html-entity"
+              element={<HtmlEntityConverter />}
+            />
             <Route path="/devutilities/json-yaml" element={<JsonYamlConverter />} />
-            <Route path="/devutilities/markdown" element = {<MarkdownPreviewer/>} />
+            <Route path="/devutilities/markdown" element={<MarkdownPreviewer />} />
             <Route path="/devutilities/base64" element={<Base64Url />} />
             <Route path="/devutilities/timestamp" element={<TimestampConverter />} />
             <Route path="/devutilities/uuid" element={<UuidGenerator />} />
@@ -147,6 +152,11 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/markdown-table" element={<MarkdownTableGenerator />} />
             <Route path="/devutilities/url-parser" element={<UrlParserBuilder />} />
             <Route path="/devutilities/sql" element={<SqlFormatter />} />
+          <Route path="/devutilities/text-case" element={<TextCaseConverter />} />
+<Route path="/devutilities/mock-json" element={<MockJsonGenerator />} />
+<Route path="/devutilities/markdown-table" element={<MarkdownTableGenerator />} />
+<Route path="/devutilities/url-parser" element={<UrlParserBuilder />} />
+<Route path="/devutilities/jwt-encoder" element={<JwtEncoder />} />
 
           </Routes>
         </div>
