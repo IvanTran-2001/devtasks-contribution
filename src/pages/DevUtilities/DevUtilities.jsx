@@ -382,6 +382,28 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+
+    {
+      title: "HTML Entity Converter",
+      description:
+        "Encode and decode HTML/XML entities using named or numeric formats. Fully offline.",
+      path: "/devutilities/html-entity",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 9l-3 3 3 3m8-6l3 3-3 3M13 5l-2 14"
+          />
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -398,11 +420,10 @@ const DevUtilities = () => {
         <header className="shrink-0 mb-12 flex flex-col gap-4">
           <Link
             to="/dashboard"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
-              dark
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
                 ? "text-neutral-400 hover:text-white"
                 : "text-neutral-500 hover:text-black"
-            }`}
+              }`}
           >
             <span>← Back to Dashboard</span>
           </Link>
