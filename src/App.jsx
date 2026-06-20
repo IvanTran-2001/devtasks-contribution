@@ -168,6 +168,7 @@ function AppInner({ toggleHUD, hudVisible }) {
               path="/devutilities/markdown"
               element={<MarkdownPreviewer />}
             />
+            <Route
               path="/devutilities/html-entity"
               element={<HtmlEntityConverter />}
             />
@@ -205,8 +206,8 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/mock-json" element={<MockJsonGenerator />} />
             <Route path="/devutilities/markdown-table" element={<MarkdownTableGenerator />} />
             <Route path="/devutilities/url-parser" element={<UrlParserBuilder />} />
-            <Route path="/devutilities/sql" element={<SqlFormatter />} />
-            <Route path="/devutilities/jwt-encoder" element={<JwtEncoder />} />
+            <Route path="/devutilities/sql-formatter" element={<SqlFormatter />} />
+            <Route path="/devutilities/jwt-encode" element={<JwtEncoder />} />
 
           </Routes>
         </div>
