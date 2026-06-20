@@ -58,6 +58,7 @@ import "./index.css";
 import MockJsonGenerator from "./pages/DevUtilities/devutilities/MockJsonDataGenerator";
 import MarkdownTableGenerator from "./pages/DevUtilities/devutilities/MarkdownTableGenerator";
 import JsonSchemaValidator from "./pages/DevUtilities/devutilities/JsonSchemaValidator";
+import FlexboxGridGenerator from "./pages/DevUtilities/devutilities/FlexboxGridGenerator";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);

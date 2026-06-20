@@ -241,6 +241,11 @@ const SIDEBAR_SECTIONS = [
         description: "Encode/decode HTML entities",
         path: "/devutilities/html-entity",
       },
+      {
+        label: "Flexbox & Grid Generator",
+        description: "Generate CSS flexbox and grid completely offline",
+        path: "/devutilities/flexbox-grid-generator",
+      },
     ],
   },
 ];
