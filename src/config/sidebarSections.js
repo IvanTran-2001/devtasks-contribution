@@ -149,7 +149,7 @@ const SIDEBAR_SECTIONS = [
       {
         label: "JWT Encoder",
         description: "Create and sign JWT tokens",
-        path: "/devutilities/jwt-encoder",
+        path: "/devutilities/jwt-encode",
       },
       {
         label: "JSON YAML Converter",
@@ -164,7 +164,7 @@ const SIDEBAR_SECTIONS = [
       {
         label: "Text Case Converter",
         description: "Convert text into different cases",
-        path: "/devutilities/text-case",
+        path: "/devutilities/text-case-converter",
       },
       {
         label: "Base64 / URL",
@@ -224,12 +224,12 @@ const SIDEBAR_SECTIONS = [
       {
         label: "Mock JSON Generator",
         description: "Generate mock JSON data",
-        path: "/devutilities/mock-json",
+        path: "/devutilities/mock-json-generator",
       },
       {
         label: "Markdown Table Generator",
         description: "Build markdown tables visually",
-        path: "/devutilities/markdown-table",
+        path: "/devutilities/markdown-table-genertaor",
       },
       {
         label: "SQL Formatter",

@@ -63,22 +63,6 @@ const DevUtilities = () => {
       ),
     },
     {
-  title: "JWT Encoder",
-  description:
-    "Create and sign JWT tokens using HS256, HS384, and HS512 algorithms completely offline.",
-  path: "/devutilities/jwt-encoder",
-  icon: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-      />
-    </svg>
-  ),
-},
-    {
       title: "JSON YAML Converter",
       description:
         "Convert JSON to YAML and YAML to JSON in real time with syntax validation.",
@@ -438,7 +422,7 @@ const DevUtilities = () => {
       title: "Mock JSON Generator",
       description:
         "Generate mock JSON data for testing and prototyping. Fully offline.",
-      path: "/devutilities/mock-json",
+      path: "/devutilities/mock-json-generator",
       icon: (
         <svg
           className="w-6 h-6"
@@ -465,7 +449,7 @@ const DevUtilities = () => {
       title: "Markdown Table Generator",
       description:
         "Build markdown tables visually or convert CSV and TSV data instantly.",
-      path: "/devutilities/markdown-table",
+      path: "/devutilities/markdown-table-genertaor",
       icon: (
         <svg
           className="w-6 h-6"
@@ -538,7 +522,7 @@ const DevUtilities = () => {
       title: "SQL Formatter & Minifier",
       description:
         "Beautify messy SQL with proper keyword casing and indentation, or minify to a single line. Fully offline.",
-      path: "/devutilities/sql",
+      path: "/devutilities/sql-formatter",
       icon: (
         <svg
           className="w-6 h-6"
