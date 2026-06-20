@@ -398,6 +398,11 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "SQL Formatter & Minifier",
+      description:
+        "Beautify messy SQL with proper keyword casing and indentation, or minify to a single line. Fully offline.",
+      path: "/devutilities/sql",
 
     {
       title: "HTML Entity Converter",
@@ -415,6 +420,7 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
+            d="M4 6h16M4 10h16M4 14h10M4 18h6"
             d="M8 9l-3 3 3 3m8-6l3 3-3 3M13 5l-2 14"
           />
         </svg>
@@ -473,6 +479,7 @@ const DevUtilities = () => {
                     if (t.includes("COLOR")) return "COLOR";
                     if (t.includes("CODE")) return "CODE";
                     if (t.includes("QR")) return "QR";
+                    if (t.includes("SQL")) return "SQL";
                     return t;
                   })
                   .join(" • ")}
