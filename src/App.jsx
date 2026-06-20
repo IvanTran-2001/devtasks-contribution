@@ -225,10 +225,6 @@ function AppInner({ toggleHUD, hudVisible }) {
               element={<AddSnippet />}
             />
             <Route
-              path="/devutilities/json-schema-validator"
-              element={<JsonSchemaValidator />}
-            />
-            <Route
               path="/snippetvault/delete-history"
               element={<DeleteHistorySnippet />}
             />
@@ -274,7 +270,10 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/markdown-table-genertaor" element={<MarkdownTableGenerator />} />
             <Route path="/devutilities/url-parser" element={<UrlParserBuilder />} />
             <Route path="/devutilities/sql" element={<SqlFormatter />} />
-
+            <Route
+              path="/devutilities/json-schema-validator"
+              element={<JsonSchemaValidator />}
+            />
           </Routes>
         </div>
       </div>
