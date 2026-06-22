@@ -49,13 +49,6 @@ const DevUtilities = () => {
 
   const cards = [
     {
-  title: "User Agent Parser",
-  description:
-    "Parse browser user-agent strings and inspect client environment information.",
-  path: "/devutilities/user-agent",
-  icon: <FaCode />,
-},
-    {
       title: "Regex Tester",
       description:
         "Test regular expressions with flags, highlights, matching text, and capturing groups.",
@@ -407,6 +400,13 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "User Agent Parser",
+      description:
+        "Parse browser user-agent strings and inspect client environment information.",
+      path: "/devutilities/user-agent",
+      icon: <FaCode />,
+    },
   ];
 
   // There are some duplicate cards, so I'm just leaving this here.
@@ -600,7 +600,7 @@ const DevUtilities = () => {
                 <>
                   <div>
                     <h2 className="text-2xl font-black uppercase tracking-tight">
-                      All Tools
+                      All Other Tools
                     </h2>
                     <p className="mt-1 text-sm font-medium text-zinc-500">
                       The full utility list lives below your favorites.

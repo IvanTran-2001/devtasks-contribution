@@ -252,7 +252,11 @@ const SIDEBAR_SECTIONS = [
         description: "Format sql queries comletely offline",
         path: "/devutilities/sql-formatter",
       },
-     
+      {
+        label: "User Agent Parser",
+        description: "Parse browser user-agent strings and inspect client environment",
+        path: "/devutilities/user-agent",
+      },
     ],
   },
 ];
