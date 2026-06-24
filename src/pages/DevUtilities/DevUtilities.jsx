@@ -382,6 +382,22 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "IP Subnet Calculator",
+      description:
+        "Calculate IPv4 subnet masks, host ranges, wildcard masks, and visualize CIDR bit maps - completely offline.",
+      path: "/devutilities/subnet",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"
+          />
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -436,6 +452,7 @@ const DevUtilities = () => {
                     if (t.includes("COLOR")) return "COLOR";
                     if (t.includes("CODE")) return "CODE";
                     if (t.includes("QR")) return "QR";
+                    if (t.includes("SUBNET")) return "SUBNET";
                     return t;
                   })
                   .join(" • ")}

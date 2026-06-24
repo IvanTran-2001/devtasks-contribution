@@ -211,6 +211,11 @@ const SIDEBAR_SECTIONS = [
         description: "Generate mock JSON data",
         path: "/devutilities/mock-json-generator",
       },
+      {
+        label: "Subnet Calculator",
+        description: "Calculate IPv4 subnets, CIDR ranges, and host counts",
+        path: "/devutilities/subnet",
+      },
     ],
   },
 ];
