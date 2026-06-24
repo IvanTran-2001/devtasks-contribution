@@ -282,16 +282,43 @@ const SubnetCalculator = () => {
       ]
     : [];
 
+  const theme = {
+    light: {
+      wrapper: "bg-[#F8F9FA] text-zinc-900",
+      heading: "text-zinc-900",
+      subtext: "text-zinc-500",
+      card: "bg-white border-zinc-200/85 shadow-sm",
+      input: "bg-zinc-50 border-zinc-200 text-zinc-900 placeholder-zinc-400 focus:border-zinc-400 focus:outline-none",
+      inputError: "bg-red-50 border-red-300 text-red-700 placeholder-red-300",
+      button: "bg-zinc-900 text-white hover:bg-zinc-800 transition-all duration-200 shadow-sm",
+      secondaryBtn: "bg-white text-zinc-800 border-zinc-200 hover:bg-zinc-50 transition-all duration-200",
+      backLink: "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350",
+      badge: "bg-zinc-100 text-zinc-800 border-zinc-200",
+      resultCard: "bg-zinc-50 border-zinc-200",
+    },
+    dark: {
+      wrapper: "bg-[#090A0F] text-zinc-100",
+      heading: "text-zinc-100",
+      subtext: "text-zinc-500",
+      card: "bg-zinc-900/50 border-zinc-800/85 backdrop-blur-md shadow-md",
+      input: "bg-zinc-900 border-zinc-700 text-zinc-100 placeholder-zinc-600 focus:border-zinc-500 focus:outline-none",
+      inputError: "bg-red-950/40 border-red-800 text-red-300 placeholder-red-700",
+      button: "bg-white text-zinc-900 hover:bg-zinc-100 transition-all duration-200 shadow-sm",
+      secondaryBtn: "bg-zinc-800/50 text-zinc-300 border-zinc-700 hover:bg-zinc-700/50 transition-all duration-200",
+      backLink: "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600",
+      badge: "bg-zinc-800 text-zinc-300 border-zinc-700",
+      resultCard: "bg-zinc-900/70 border-zinc-800",
+    },
+  };
+
+  const t = dark ? theme.dark : theme.light;
+
   return (
-    <div
-      className={`min-h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto overflow-x-hidden relative flex flex-col justify-start ${
-        dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
-      }`}
-    >
+    <div className={`min-h-screen ${t.wrapper} px-4 sm:px-6 py-6 sm:py-10 transition-colors duration-300 relative`}>
       {/* Inject slider CSS once */}
       <style>{sliderStyles}</style>
 
-      <title>Subnet Calculator — Dev Utilities</title>
+      <title>Subnet Calculator — Dev Tasks</title>
       <meta
         name="description"
         content="Calculate IPv4 subnet masks, host ranges, CIDR notations, and binary visualizations completely offline."
@@ -311,50 +338,34 @@ const SubnetCalculator = () => {
 
       {/* Card — overflow visible so binary expansion is never clipped */}
       <div
-        className={`relative z-10 w-full max-w-5xl mx-auto rounded-[32px] border shadow-xl flex flex-col transition-all duration-300 ${
-          dark ? "bg-zinc-900 border-zinc-800" : "bg-white border-neutral-200"
-        }`}
+        className={`relative z-10 w-full max-w-5xl mx-auto rounded-3xl border shadow-xl flex flex-col transition-all duration-300 p-6 sm:p-8 ${t.card}`}
       >
-        {/* Top accent bar */}
-        <div
-          className={`h-2 w-full rounded-t-[32px] transition-colors duration-500 ${
-            dark ? "bg-white" : "bg-black"
-          }`}
-        />
-
         {/* Header */}
-        <div className="px-5 sm:px-8 pt-6 sm:pt-8 flex items-center gap-3">
+        <div className="flex items-center gap-3 mb-6 sm:mb-8">
           <Link
             to="/devutilities"
-            className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
-              dark
-                ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
-                : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
-            }`}
+            className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${t.backLink}`}
             title="Back to Workspace"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
             </svg>
           </Link>
-          <h1
-            className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
-              dark ? "text-white" : "text-black"
-            }`}
-          >
-            IP Subnet Calculator
-          </h1>
+          <div>
+            <h1 className={`text-xl sm:text-2xl font-semibold tracking-tight ${t.heading}`}>
+              IP Subnet Calculator
+            </h1>
+            <p className={`mt-0.5 text-xs sm:text-sm ${t.subtext}`}>
+              Calculate IPv4 subnets, CIDR ranges, and host counts completely offline.
+            </p>
+          </div>
         </div>
 
         {/* Controls */}
-        <div className="px-5 sm:px-8 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
           {/* IP Address */}
           <div className="flex flex-col space-y-2">
-            <label
-              className={`text-xs font-black uppercase tracking-widest ${
-                dark ? "text-zinc-400" : "text-neutral-500"
-              }`}
-            >
+            <label className={`text-xs font-semibold uppercase tracking-widest ${t.subtext}`}>
               IP Address
             </label>
             <input
@@ -363,22 +374,12 @@ const SubnetCalculator = () => {
               onChange={handleIpChange}
               placeholder="192.168.1.1"
               spellCheck={false}
-              className={`px-4 py-3 rounded-2xl border text-sm font-mono outline-none transition-all duration-300 ${
-                dark
-                  ? `bg-zinc-950 text-white placeholder-zinc-700 ${
-                      ipError
-                        ? "border-zinc-600 focus:border-zinc-400"
-                        : "border-zinc-800 focus:border-white focus:ring-1 focus:ring-white"
-                    }`
-                  : `bg-neutral-50 text-black placeholder-neutral-400 ${
-                      ipError
-                        ? "border-neutral-400 focus:border-neutral-600"
-                        : "border-neutral-300 focus:border-black focus:ring-1 focus:ring-black"
-                    }`
+              className={`w-full px-4 py-2.5 rounded-xl border text-sm font-mono outline-none transition-colors duration-200 ${
+                ipError ? t.inputError : t.input
               }`}
             />
             {ipError && (
-              <p className={`text-[11px] font-bold ${dark ? "text-zinc-400" : "text-neutral-500"}`}>
+              <p className="text-xs text-red-500 font-semibold">
                 {ipError}
               </p>
             )}
@@ -386,11 +387,7 @@ const SubnetCalculator = () => {
 
           {/* CIDR Slider */}
           <div className="flex flex-col space-y-2">
-            <label
-              className={`text-xs font-black uppercase tracking-widest ${
-                dark ? "text-zinc-400" : "text-neutral-500"
-              }`}
-            >
+            <label className={`text-xs font-semibold uppercase tracking-widest ${t.subtext}`}>
               CIDR Prefix — /{cidr}
             </label>
             <div className="flex items-center gap-3 pt-2">
@@ -402,19 +399,11 @@ const SubnetCalculator = () => {
                 onChange={(e) => setCidr(Number(e.target.value))}
                 className={`subnet-slider flex-1 ${dark ? "dark-track" : "light-track"}`}
               />
-              <span
-                className={`text-sm font-mono font-black w-8 text-right shrink-0 ${
-                  dark ? "text-white" : "text-black"
-                }`}
-              >
+              <span className={`text-sm font-mono font-bold w-8 text-right shrink-0 ${t.heading}`}>
                 /{cidr}
               </span>
             </div>
-            <div
-              className={`flex justify-between text-[10px] font-bold ${
-                dark ? "text-zinc-600" : "text-neutral-400"
-              }`}
-            >
+            <div className={`flex justify-between text-[10px] font-bold ${t.subtext}`}>
               <span>/0</span>
               <span>/8</span>
               <span>/16</span>
@@ -425,34 +414,25 @@ const SubnetCalculator = () => {
         </div>
 
         {/* Action buttons */}
-        <div className="px-5 sm:px-8 pt-4 flex gap-3">
+        <div className="flex gap-3 mb-8">
           <button
             type="button"
             onClick={handleSample}
-            className={`px-4 py-2.5 rounded-xl border font-bold text-sm transition-all duration-300 active:scale-95 ${
-              dark
-                ? "border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
-                : "border-neutral-300 text-neutral-600 hover:bg-neutral-100 hover:text-black"
-            }`}
+            className={`px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-widest border transition-all duration-200 active:scale-95 ${t.secondaryBtn}`}
           >
             Sample
           </button>
           <button
             type="button"
             onClick={handleReset}
-            className={`px-4 py-2.5 rounded-xl border font-bold text-sm transition-all duration-300 active:scale-95 ${
-              dark
-                ? "border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
-                : "border-neutral-300 text-neutral-600 hover:bg-neutral-100 hover:text-black"
-            }`}
+            className={`px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-widest border transition-all duration-200 active:scale-95 ${t.secondaryBtn}`}
           >
             Reset
           </button>
         </div>
 
         {/* Main output */}
-        <div className="px-5 sm:px-8 py-6 space-y-6">
-
+        <div className="space-y-6">
           {/* Metrics grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {isValid
@@ -476,52 +456,36 @@ const SubnetCalculator = () => {
           </div>
 
           {/* Visual Subnet Bitmap */}
-          <div
-            className={`rounded-2xl border p-5 space-y-4 transition-colors duration-300 ${
-              dark ? "bg-zinc-950 border-zinc-800" : "bg-neutral-50 border-neutral-200"
-            }`}
-          >
+          <div className={`rounded-2xl border p-5 space-y-4 transition-colors duration-300 ${t.resultCard}`}>
             <div className="flex items-center justify-between flex-wrap gap-3">
-              <span
-                className={`text-[10px] font-black uppercase tracking-widest ${
-                  dark ? "text-zinc-500" : "text-neutral-400"
-                }`}
-              >
+              <span className={`text-[10px] font-black uppercase tracking-widest ${t.subtext}`}>
                 32-bit Address Map
               </span>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1.5">
                   <div className={`w-3 h-3 rounded-[2px] ${dark ? "bg-white" : "bg-black"}`} />
-                  <span className={`text-[10px] font-bold uppercase tracking-widest ${dark ? "text-zinc-400" : "text-neutral-500"}`}>
+                  <span className={`text-[10px] font-bold uppercase tracking-widest ${t.subtext}`}>
                     Network
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <div className={`w-3 h-3 rounded-[2px] ${dark ? "bg-zinc-700" : "bg-neutral-300"}`} />
-                  <span className={`text-[10px] font-bold uppercase tracking-widest ${dark ? "text-zinc-400" : "text-neutral-500"}`}>
+                  <span className={`text-[10px] font-bold uppercase tracking-widest ${t.subtext}`}>
                     Host
                   </span>
                 </div>
               </div>
             </div>
             <BitMap prefix={cidr} dark={dark} />
-            <p className={`text-[10px] font-bold ${dark ? "text-zinc-600" : "text-neutral-400"}`}>
+            <p className={`text-[10px] font-bold ${t.subtext}`}>
               {cidr} network bit{cidr !== 1 ? "s" : ""} · {32 - cidr} host bit{32 - cidr !== 1 ? "s" : ""}
             </p>
           </div>
 
           {/* Binary Expansion */}
           {isValid && result && (
-            <div
-              className={`rounded-2xl border p-5 space-y-5 transition-colors duration-300 ${
-                dark ? "bg-zinc-950 border-zinc-800" : "bg-neutral-50 border-neutral-200"
-              }`}
-            >
-              <span
-                className={`text-[10px] font-black uppercase tracking-widest block ${
-                  dark ? "text-zinc-500" : "text-neutral-400"
-                }`}
-              >
+            <div className={`rounded-2xl border p-5 space-y-5 transition-colors duration-300 ${t.resultCard}`}>
+              <span className={`text-[10px] font-black uppercase tracking-widest block ${t.subtext}`}>
                 Binary Expansion
               </span>
               <div className="space-y-4">
@@ -547,11 +511,7 @@ const SubnetCalculator = () => {
             </div>
           )}
 
-          <p
-            className={`text-[10px] font-bold uppercase tracking-widest text-right pb-2 ${
-              dark ? "text-zinc-600" : "text-neutral-400"
-            }`}
-          >
+          <p className={`text-[10px] font-bold uppercase tracking-widest text-right pb-2 ${t.subtext}`}>
             All calculations are client-side · works offline
           </p>
         </div>

@@ -137,19 +137,9 @@ const SIDEBAR_SECTIONS = [
         exact: true,
       },
       {
-        label: "Regex Tester",
-        description: "Test expressions",
-        path: "/devutilities/regex",
-      },
-      {
         label: "JSON Formatter",
         description: "Format and validate JSON",
         path: "/devutilities/json",
-      },
-      {
-        label: "JWT Encoder",
-        description: "Create and sign JWT tokens",
-        path: "/devutilities/jwt-encode",
       },
       {
         label: "JSON YAML Converter",
@@ -157,9 +147,34 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json-yaml",
       },
       {
-        label: "URL Parser",
-        description: "Parse and build URLs",
-        path: "/devutilities/url-parser",
+        label: "JSON Schema Validator",
+        description: "Validate JSON data against a schema",
+        path: "/devutilities/json-schema-validator",
+      },
+      {
+        label: "Mock JSON Generator",
+        description: "Generate mock JSON data",
+        path: "/devutilities/mock-json-generator",
+      },
+      {
+        label: "SQL Formatter",
+        description: "Format and minify SQL queries",
+        path: "/devutilities/sql",
+      },
+      {
+        label: "Markdown Previewer",
+        description: "Preview markdown syntax",
+        path: "/devutilities/markdown",
+      },
+      {
+        label: "Markdown Table Generator",
+        description: "Build markdown tables visually",
+        path: "/devutilities/markdown-table-genertaor",
+      },
+      {
+        label: "Regex Tester",
+        description: "Test expressions",
+        path: "/devutilities/regex",
       },
       {
         label: "Text Case Converter",
@@ -167,9 +182,51 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/text-case",
       },
       {
+        label: "String Inspector",
+        description: "Analyze character, word, sentence, and paragraph counts",
+        path: "/devutilities/string-inspector",
+      },
+      {
+        label: "Diff Checker",
+        description: "Compare text differences",
+        path: "/devutilities/diff",
+      },
+      {
         label: "Base64 / URL",
         description: "Encode and decode",
         path: "/devutilities/base64",
+      },
+      {
+        label: "HTML Entity Converter",
+        description: "Encode/decode HTML entities",
+        path: "/devutilities/html-entity",
+      },
+      {
+        label: "URL Parser",
+        description: "Parse and build URLs",
+        path: "/devutilities/url-parser",
+      },
+      {
+        label: "User Agent Parser",
+        description:
+          "Parse browser user-agent strings and inspect client environment",
+        path: "/devutilities/user-agent",
+      },
+      {
+        label: "Subnet Calculator",
+        description: "Calculate IPv4 subnets, CIDR ranges, and host counts",
+        path: "/devutilities/subnet",
+      },
+      {
+        label: "Chmod Calculator",
+        description:
+          "Calculate Unix file permissions in decimal and octal notation.",
+        path: "/devutilities/chmod",
+      },
+      {
+        label: "Number Base Converter",
+        description: "Convert between decimal, hex, binary, and octal",
+        path: "/devutilities/number-base-converter",
       },
       {
         label: "Timestamp",
@@ -182,86 +239,19 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/uuid",
       },
       {
-        label: "JWT Decoder",
-        description: "Inspect tokens",
-        path: "/devutilities/jwt",
-      },
-
-      {
-        label: "Diff Checker",
-        description: "Compare text differences",
-        path: "/devutilities/diff",
-      },
-      {
-        label: "Code Sandbox",
-        description: "Live HTML/CSS/JS preview",
-        path: "/devutilities/code",
-      },
-      {
         label: "Hash Generator",
         description: "Generate crypto hashes",
         path: "/devutilities/hash",
       },
       {
-        label: "Color Converter",
-        description: "Convert colors and check contrast",
-        path: "/devutilities/color",
+        label: "JWT Encoder",
+        description: "Create and sign JWT tokens",
+        path: "/devutilities/jwt-encode",
       },
       {
-        label: "QR Code Generator",
-        description: "Generate QR codes",
-        path: "/devutilities/qrcode",
-      },
-      {
-        label: "Markdown Previewer",
-        description: "Preview markdown syntax",
-        path: "/devutilities/markdown",
-      },
-      {
-        label: "Mock JSON Generator",
-        description: "Generate mock JSON data",
-        path: "/devutilities/mock-json-generator",
-      },
-      {
-        
-        label: "JSON Schema Validator",
-        description: "Validate JSON data against a schema",
-        path: "/devutilities/json-schema-validator",
-      },
-      {
-        label: "Markdown Table Generator",
-        description: "Build markdown tables visually",
-        path: "/devutilities/markdown-table-genertaor",
-      },
-      {
-        label: "SQL Formatter",
-        description: "Format and minify SQL queries",
-        path: "/devutilities/sql",
-      },
-      {
-        label: "HTML Entity Converter",
-        description: "Encode/decode HTML entities",
-        path: "/devutilities/html-entity",
-      },
-      {
-        label: "Flexbox & Grid Generator",
-        description: "Generate CSS flexbox and grid completely offline",
-        path: "/devutilities/flexbox-grid-generator",
-      },
-      {
-        label: "User Agent Parser",
-        description:
-          "Parse browser user-agent strings and inspect client environment",
-        path: "/devutilities/user-agent",
-      },
-      {
-        label: "Chmod Calculator",
-        description:
-          "Calculate Unix file permissions in decimal and octal notation.",
-        path: "/devutilities/chmod",
-        label: "CRON Expression Generator & Descriptor",
-        description: "Generate and inspect CRON expressions. Fully offline.",
-        path: "/devutilities/cron",
+        label: "JWT Decoder",
+        description: "Inspect tokens",
+        path: "/devutilities/jwt",
       },
       {
         label: "CSS Gradient Generator",
@@ -274,14 +264,29 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/glassmorphism",
       },
       {
-        label: "String Inspector",
-        description: "Analyze character, word, sentence, and paragraph counts",
-        path: "/devutilities/string-inspector",
+        label: "Flexbox & Grid Generator",
+        description: "Generate CSS flexbox and grid completely offline",
+        path: "/devutilities/flexbox-grid-generator",
       },
       {
-        label: "Subnet Calculator",
-        description: "Calculate IPv4 subnets, CIDR ranges, and host counts",
-        path: "/devutilities/subnet",
+        label: "Color Converter",
+        description: "Convert colors and check contrast",
+        path: "/devutilities/color",
+      },
+      {
+        label: "QR Code Generator",
+        description: "Generate QR codes",
+        path: "/devutilities/qrcode",
+      },
+      {
+        label: "Code Sandbox",
+        description: "Live HTML/CSS/JS preview",
+        path: "/devutilities/code",
+      },
+      {
+        label: "CRON Expression Generator & Descriptor",
+        description: "Generate and inspect CRON expressions. Fully offline.",
+        path: "/devutilities/cron",
       },
     ],
   },
