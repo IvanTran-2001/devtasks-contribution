@@ -223,9 +223,7 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/mock-json-generator",
       },
       {
-        label: "Subnet Calculator",
-        description: "Calculate IPv4 subnets, CIDR ranges, and host counts",
-        path: "/devutilities/subnet",
+        
         label: "JSON Schema Validator",
         description: "Validate JSON data against a schema",
         path: "/devutilities/json-schema-validator",
@@ -274,6 +272,11 @@ const SIDEBAR_SECTIONS = [
         label: "String Inspector",
         description: "Analyze character, word, sentence, and paragraph counts",
         path: "/devutilities/string-inspector",
+      },
+      {
+        label: "Subnet Calculator",
+        description: "Calculate IPv4 subnets, CIDR ranges, and host counts",
+        path: "/devutilities/subnet",
       },
     ],
   },
