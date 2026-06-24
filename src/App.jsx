@@ -72,6 +72,7 @@ import ChmodCalculator from "./pages/DevUtilities/devutilities/ChmodCalculator";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import StringInspector from "./pages/DevUtilities/devutilities/StringInspector";
 import NumberBaseConverter from "./pages/DevUtilities/devutilities/NumberBaseConverter";
+import LoremIpsumGenerator from "./pages/DevUtilities/devutilities/LoremIpsumGenerator";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -308,8 +309,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               element={<CssGlassmorphismPlayground />}
             />
             <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/devutilities/lorem-ipsum" element={<LoremIpsumGenerator />} />
 
           </Routes>
+          
           </div>
           {showNavbar && <Footer />}
         </div>
