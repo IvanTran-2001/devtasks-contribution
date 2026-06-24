@@ -227,40 +227,42 @@ const ChmodCalculator = () => {
 
             <tbody>
               {PERMISSIONS.map(({ key, label }) => (
-                <tr key={key}>
-                    <td>{label}</td>
+                <tr key={key} className={dark ? "border-b border-zinc-800" : "border-b border-neutral-100"}>
+                    <td className="p-4 font-semibold text-sm text-left">{label}</td>
 
                     {ENTITIES.map((entity) => (
-                    <td key={entity}>
-                        <button
-                            type="button"
-                            onClick={() => togglePermission(entity, key)}
-                            className={`w-4 h-4 my-2 rounded-xl border flex items-center justify-center transition-all duration-200 hover:scale-105 ${
-                                permissions[entity][key]
-                                ? dark
-                                    ? "bg-white text-black border-white"
-                                    : "bg-black text-white border-black"
-                                : dark
-                                    ? "bg-zinc-900 border-zinc-700 text-zinc-600 hover:border-zinc-500"
-                                    : "bg-white border-neutral-200 text-neutral-400 hover:border-neutral-400"
-                            }`}
+                    <td key={entity} className="p-4 text-center">
+                        <div className="flex justify-center">
+                            <button
+                                type="button"
+                                onClick={() => togglePermission(entity, key)}
+                                className={`w-6 h-6 rounded-md border flex items-center justify-center transition-all duration-200 hover:scale-110 cursor-pointer ${
+                                    permissions[entity][key]
+                                    ? dark
+                                        ? "bg-white text-black border-white"
+                                        : "bg-black text-white border-black"
+                                    : dark
+                                        ? "bg-zinc-900 border-zinc-700 text-zinc-600 hover:border-zinc-500"
+                                        : "bg-white border-neutral-200 text-neutral-400 hover:border-neutral-400"
+                                }`}
                             >
-                            {permissions[entity][key] && (
-                                <svg
-                                className="w-4 h-4"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={3}
-                                >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M5 13l4 4L19 7"
-                                />
-                                </svg>
-                            )}
+                                {permissions[entity][key] && (
+                                    <svg
+                                        className="w-3.5 h-3.5"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={3}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M5 13l4 4L19 7"
+                                        />
+                                    </svg>
+                                )}
                             </button>
+                        </div>
                     </td>
                     ))}
                 </tr>

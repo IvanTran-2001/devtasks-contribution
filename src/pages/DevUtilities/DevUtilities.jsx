@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import { FaCode } from "react-icons/fa";
+import SIDEBAR_SECTIONS from "../../config/sidebarSections";
 
 const DevUtilities = () => {
   const { dark } = useTheme();
@@ -496,13 +497,30 @@ const DevUtilities = () => {
             d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"
           />
         </svg>
-     ),
+      ),
+    },
     {
       title: "User Agent Parser",
       description:
         "Parse browser user-agent strings and inspect client environment information.",
       path: "/devutilities/user-agent",
       icon: <FaCode />,
+    },
+    {
+      title: "Chmod Calculator",
+      description:
+        "Calculate Unix file permissions in octal and symbolic formats visually.",
+      path: "/devutilities/chmod",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          />
+        </svg>
+      ),
     },
     {
       title: "CRON Expression Generator & Descriptor",
@@ -549,13 +567,38 @@ const DevUtilities = () => {
     </svg>
   ),
 },
-
-
+    {
+      title: "CSS Gradient Generator",
+      description: "Create beautiful CSS gradients with live preview",
+      path: "/devutilities/css-gradient",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+    },
   ];
+
+  const devUtilsSection = SIDEBAR_SECTIONS.find((s) => s.title === "Dev Utilities");
+  const pathOrder = devUtilsSection ? devUtilsSection.items.map((item) => item.path) : [];
+
+  const sortedCards = [...cards].sort((a, b) => {
+    const indexA = pathOrder.indexOf(a.path);
+    const indexB = pathOrder.indexOf(b.path);
+    if (indexA === -1 && indexB === -1) return 0;
+    if (indexA === -1) return 1;
+    if (indexB === -1) return -1;
+    return indexA - indexB;
+  });
 
   // There are some duplicate cards, so I'm just leaving this here.
   const uniqueCards = Array.from(
-    new Map(cards.map((card) => [card.path, card])).values(),
+    new Map(sortedCards.map((card) => [card.path, card])).values(),
   );
 
   const matchedCards = uniqueCards.filter(
@@ -657,10 +700,10 @@ const DevUtilities = () => {
                 </div>
               )}
               <div className="text-xs font-black uppercase tracking-widest mb-2">
-                Utility Status: {cards.length} Active Utilities
+                Utility Status: {uniqueCards.length} Active Utilities
               </div>
               <div className="text-[10px] font-bold text-gray-500 uppercase truncate">
-                {cards
+                {uniqueCards
                   .map((card) => {
                     const t = card.title.toUpperCase();
                     if (t.includes("REGEX")) return "REGEXP";
@@ -677,6 +720,8 @@ const DevUtilities = () => {
                     if (t.includes("QR")) return "QR";
                     if (t.includes("SUBNET")) return "SUBNET";
                     if (t.includes("SQL")) return "SQL";
+                    if (t.includes("CHMOD")) return "CHMOD";
+                    if (t.includes("GRADIENT")) return "GRADIENT";
                     return t;
                   })
                   .join(" • ")}
